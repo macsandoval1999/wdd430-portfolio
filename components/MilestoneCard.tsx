@@ -4,9 +4,11 @@
 interface MilestoneCardProps {
     title: string;
     courseName?: string;
+    certificationName?: string;
     description: string;
     keyWords: string[];
     projectLink?: string;
+    milestoneType?: "course" | "certification";
     completionDate: string;
     milestoneNumber: number;
 }
@@ -15,23 +17,48 @@ interface MilestoneCardProps {
 export default function MilestoneCard({
     title,
     courseName,
+    certificationName,
+    milestoneType,
     description,
     keyWords,
     projectLink,
     completionDate,
     milestoneNumber,
 }: MilestoneCardProps) {
+    const isCertification = milestoneType === "certification";
+
     return (
-        // Tailwind CSS classes are applied for styling, including padding, borders, background color, and typography.
-        <article className="p-4 border-l-4 border-blue-600 bg-gray-50 rounded relative">
-            <span className="absolute top-2 right-2 text-sm font-bold text-white bg-blue-600 rounded-full px-3 py-1">
+        // Certifications span the full grid row (md:col-span-2) and get a gold, celebratory style; other milestones keep the standard card.
+        <article
+            className={
+                isCertification
+                    ? "md:col-span-2 p-6 border-2 border-amber-500 bg-gradient-to-r from-amber-100 via-yellow-50 to-amber-100 rounded-lg shadow-lg relative"
+                    : "p-4 border-l-4 border-blue-600 bg-gray-50 rounded relative"
+            }
+        >
+            <span className="absolute top-2 right-2 text-sm font-bold text-white bg-blue-700 rounded-full px-3 py-1">
                 #{milestoneNumber}
             </span>
-            <p className="mt-2 text-sm text-gray-600">
+            {isCertification && (
+                <p className="text-amber-900 font-bold uppercase tracking-wide text-sm">
+                    <span aria-hidden="true">🎉 🏆 🎓 </span>
+                    Certification Earned
+                </p>
+            )}
+            <p className="mt-2 text-sm text-gray-700">
                 <strong>Completion Date:</strong> {completionDate}
             </p>
-            <h3 className="text-xl text-gray-900 font-bold mb-2">{title}</h3>
-            {courseName && <p className="text-gray-700 mb-1"><strong>Course Name:</strong> {courseName}</p>}
+            <h3
+                className={
+                    isCertification
+                        ? "text-3xl text-gray-900 font-extrabold mb-2"
+                        : "text-xl text-gray-900 font-bold mb-2"
+                }
+            >
+                {title}
+            </h3>
+            {courseName && milestoneType === "course" && <p className="text-gray-700 mb-1"><strong>Course Name:</strong> {courseName}</p>}
+            {certificationName && milestoneType === "certification" && <p className="text-gray-700 mb-1"><strong>Certification Name:</strong> {certificationName}</p>}
             <p className="text-gray-700 mb-3">{description}</p>
             <p className="text-sm text-gray-600">
                 <strong>Key Words:</strong> {keyWords.join(", ")}

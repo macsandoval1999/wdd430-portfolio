@@ -9,8 +9,7 @@ export default async function Footer() {
         <footer className="bg-gray-800 text-white py-4 mt-12">
             <div className="container mx-auto text-center">
                 <p>
-                    Copyright &copy; {new Date().getFullYear()} | Xavier
-                    Rodriguez | All rights reserved
+                    Copyright &copy; {new Date().getFullYear()} | Marco Sandoval | All rights reserved
                 </p>
             </div>
         </footer>

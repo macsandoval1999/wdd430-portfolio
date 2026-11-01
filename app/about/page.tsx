@@ -1,12 +1,20 @@
-import Timeline from "@/components/Timeline";
+import type { Metadata } from "next";
+import Timeline, { type Milestone } from "@/components/Timeline";
 
-const milestones = [
+export const metadata: Metadata = {
+    title: "About",
+    description:
+        "Learn about Marco Sandoval's background and the milestones along the way.",
+};
+
+const milestones: Milestone[] = [
     {
         title: "Completed CSE 341",
         courseName: "Web Services",
         description:
             "Web Services course covering server-side development with Node.js and Express.",
         keyWords: ["Node.js", "Express", "APIs", "git", "Postman", "REST", "MongoDB", "Mongoose"],
+        milestoneType: "course",
         completionDate: "10-16-2026",
     },
     {
@@ -15,6 +23,7 @@ const milestones = [
         description:
             "Front-end development course focusing on modern web technologies.",
         keyWords: ["HTML", "CSS", "JavaScript", "APIs", "git", "Node.js"],
+        milestoneType: "course",
         completionDate: "02-18-2026",
     },
     {
@@ -23,6 +32,7 @@ const milestones = [
         description:
             "Front-end development course focusing on modern web technologies.",
         keyWords: ["HTML", "CSS", "JavaScript", "APIs", "git"],
+        milestoneType: "course",
         completionDate: "12-10-2025",
     },
     {
@@ -31,6 +41,7 @@ const milestones = [
         description:
             "Web backend development course focusing on server-side technologies.",
         keyWords: ["Node.js", "Express", "APIs", "git", "EJS", "pgAdmin", "PostgreSQL"],
+        milestoneType: "course",
         completionDate: "04-14-2026",
     },
     {
@@ -39,6 +50,7 @@ const milestones = [
         description:
             "Programming with classes course focusing on object-oriented programming concepts.",
         keyWords: ["C#", "git", ".NET"],
+        milestoneType: "course",
         completionDate: "08-12-2025",
     },
     {
@@ -47,6 +59,7 @@ const milestones = [
         description:
             "Dynamic web fundamentals course focusing on building interactive web applications.",
         keyWords: ["HTML", "CSS", "JavaScript", "git"],
+        milestoneType: "course",
         completionDate: "10-15-2025",
     },
     {
@@ -55,6 +68,7 @@ const milestones = [
         description:
             "Introduction to web development course covering the basics of HTML, and CSS.",
         keyWords: ["HTML", "CSS", "git"],
+        milestoneType: "course",
         completionDate: "04-16-2025",
     },
     {
@@ -63,6 +77,7 @@ const milestones = [
         description:
             "Introduction to programming course covering basic programming concepts and problem-solving techniques.",
         keyWords: ["Python 3"],
+        milestoneType: "course",
         completionDate: "12-10-2024",
     },
     {
@@ -71,6 +86,7 @@ const milestones = [
         description:
             "Introduction to programming course covering fundamental programming concepts and building blocks.",
         keyWords: ["Python 3"],
+        milestoneType: "course",
         completionDate: "02-19-2025",
     },
     {
@@ -79,7 +95,17 @@ const milestones = [
         description:
             "Introduction to databases course covering basic database concepts and SQL.",
         keyWords: ["SQL", "mySQL"],
+        milestoneType: "course",
         completionDate: "08-12-2024",
+    },
+    {
+        title: "Received Web and Computer Programming Certification",
+        certificationName: "Web and Computer Programming Certification",
+        description:
+            "Received certification for completing the Web and Computer Programming program.",
+        keyWords: ["Web Development", "Programming"],
+        milestoneType: "certification",
+        completionDate: "12-13-2025"
     }
 ];
 
@@ -87,7 +113,7 @@ export default function About() {
     return (
         <main className="max-w-4xl mx-auto px-4 py-12">
             <h2 className="text-3xl font-bold mb-4">About Me</h2>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-gray-700 dark:text-gray-300">
                 This about page shares more information about my background and
                 work.
             </p>

@@ -7,23 +7,26 @@ export default function Header() {
     return (
         // The returned JSX uses semantic HTML elements: header for page header structure, nav for navigation, and a list (ul/li) for menu links.
         <header className="bg-blue-600 text-white py-4 shadow-md">
-            <div id="header-title" className="text-2xl font-bold">
-                Marco Sandoval
+            {/* This wrapper matches the page's max-w-4xl/px-4 container so the name aligns with the content below. */}
+            <div className="max-w-4xl mx-auto px-4">
+                <div id="header-title" className="text-2xl font-bold">
+                    Marco Sandoval
+                </div>
+                {/* className applies Tailwind CSS utility classes for color,
+                spacing, alignment, and sizing. */}
+                <nav className="flex justify-between items-center">
+                    <ul className="flex gap-6">
+                        {/* <Link href="/"> and <Link href="/about"> map to App Router pages at app/page.tsx and app/about/page.tsx. */}
+                        <li>
+                            {/* Use Next.js Link for internal routes in your app, and use an HTML <a> element for external URLs. */}
+                            <Link href="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link href="/about">About</Link>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            {/* className applies Tailwind CSS utility classes for color,
-            spacing, alignment, and sizing. */}
-            <nav className="max-w-4xl mx-auto px-4 flex justify-between items-center">
-                <ul className="flex gap-6">
-                    {/* <Link href="/"> and <Link href="/about"> map to App Router pages at app/page.tsx and app/about/page.tsx. */}
-                    <li>
-                        {/* Use Next.js Link for internal routes in your app, and use an HTML <a> element for external URLs. */}
-                        <Link href="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link href="/about">About</Link>
-                    </li>
-                </ul>
-            </nav>
         </header>
     );
 }

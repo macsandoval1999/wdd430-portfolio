@@ -2,9 +2,11 @@
 import MilestoneCard from "./MilestoneCard";
 
 // The Milestone interface defines the shape of a single milestone object, including optional project link property.
-interface Milestone {
+export interface Milestone {
     title: string;
     courseName?: string;
+    certificationName?: string;
+    milestoneType?: "course" | "certification";
     description: string;
     keyWords: string[];
     projectLink?: string;
