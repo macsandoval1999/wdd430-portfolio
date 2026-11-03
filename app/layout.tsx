@@ -18,7 +18,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
+        <html lang="en" className="scroll-smooth motion-reduce:scroll-auto">
+            <head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link
+                    rel="preconnect"
+                    href="https://fonts.gstatic.com"
+                    crossOrigin="anonymous"
+                />
+            </head>
             <body>
                 <Header />
                 {children}

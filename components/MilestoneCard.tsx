@@ -1,8 +1,8 @@
-// This component can be reused for multiple milestones by passing different prop values.
+import CredentialSymbol from "./CredentialSymbol";
 
-// The MilestoneCardProps interface defines the expected props for the component, providing type safety and documentation.
-interface MilestoneCardProps {
+export interface Milestone {
     title: string;
+    milestoneId?: string;
     courseName?: string;
     certificationName?: string;
     description: string;
@@ -10,12 +10,16 @@ interface MilestoneCardProps {
     projectLink?: string;
     milestoneType?: "course" | "certification";
     completionDate: string;
+}
+
+interface MilestoneCardProps extends Milestone {
     milestoneNumber: number;
 }
 
 // The component uses destructuring to access props directly in the function parameters.
 export default function MilestoneCard({
     title,
+    milestoneId,
     courseName,
     certificationName,
     milestoneType,
@@ -28,44 +32,56 @@ export default function MilestoneCard({
     const isCertification = milestoneType === "certification";
 
     return (
-        // Certifications span the full grid row (md:col-span-2) and get a gold, celebratory style; other milestones keep the standard card.
         <article
+            id={milestoneId}
             className={
                 isCertification
-                    ? "md:col-span-2 p-6 border-2 border-amber-500 bg-gradient-to-r from-amber-100 via-yellow-50 to-amber-100 rounded-lg shadow-lg relative"
-                    : "p-4 border-l-4 border-blue-600 bg-gray-50 rounded relative"
+                    ? "scroll-mt-6 relative min-w-0 border-2 border-accent border-l-[5px] bg-[linear-gradient(135deg,#35161f,var(--surface))] p-[1.4rem] pt-[3.2rem] shadow-[4px_4px_0_#090609] transition duration-200 ease-out hover:-translate-y-1 hover:border-accent-bright hover:shadow-[6px_6px_0_#090609] motion-reduce:transition-none min-[641px]:col-span-2 [&_strong]:text-foreground"
+                    : "scroll-mt-6 relative min-w-0 border-2 border-l-[5px] border-border border-l-accent bg-surface p-[1.4rem] pt-[3.2rem] shadow-[4px_4px_0_#090609] transition duration-200 ease-out hover:-translate-y-1 hover:border-accent-bright hover:shadow-[6px_6px_0_#090609] motion-reduce:transition-none [&_strong]:text-foreground"
             }
         >
-            <span className="absolute top-2 right-2 text-sm font-bold text-white bg-blue-700 rounded-full px-3 py-1">
+            <span className="absolute left-3 top-3">
+                <CredentialSymbol
+                    type={isCertification ? "certificate" : "course"}
+                />
+            </span>
+            <span className="absolute right-3 top-3 border border-accent bg-[#35161f] px-[0.55rem] py-[0.15rem] font-mono text-[0.8rem] font-bold text-accent-bright">
                 #{milestoneNumber}
             </span>
             {isCertification && (
-                <p className="text-amber-900 font-bold uppercase tracking-wide text-sm">
-                    <span aria-hidden="true">🎉 🏆 🎓 </span>
+                <p className="!mt-0 font-mono text-[0.8rem] font-bold uppercase tracking-[0.1em] text-accent-bright">
                     Certification Earned
                 </p>
             )}
-            <p className="mt-2 text-sm text-gray-700">
+            <p className="my-[0.6rem] font-mono text-[0.85rem] text-muted">
                 <strong>Completion Date:</strong> {completionDate}
             </p>
-            <h3
-                className={
-                    isCertification
-                        ? "text-3xl text-gray-900 font-extrabold mb-2"
-                        : "text-xl text-gray-900 font-bold mb-2"
-                }
-            >
+            <h3 className="mb-[0.65rem] mt-0 text-[1.35rem] leading-[1.3] text-foreground">
                 {title}
             </h3>
-            {courseName && milestoneType === "course" && <p className="text-gray-700 mb-1"><strong>Course Name:</strong> {courseName}</p>}
-            {certificationName && milestoneType === "certification" && <p className="text-gray-700 mb-1"><strong>Certification Name:</strong> {certificationName}</p>}
-            <p className="text-gray-700 mb-3">{description}</p>
-            <p className="text-sm text-gray-600">
+            {courseName && milestoneType === "course" && (
+                <p className="my-[0.6rem] text-muted">
+                    <strong>Course Name:</strong> {courseName}
+                </p>
+            )}
+            {certificationName && milestoneType === "certification" && (
+                <p className="my-[0.6rem] text-muted">
+                    <strong>Certification Name:</strong> {certificationName}
+                </p>
+            )}
+            <p className="my-[0.6rem] text-muted">{description}</p>
+            <p className="my-[0.6rem] font-mono text-[0.85rem] text-muted">
                 <strong>Key Words:</strong> {keyWords.join(", ")}
             </p>
             {projectLink && (
-                <p className="text-sm text-gray-600">
-                    <strong>Project Link:</strong> <a href={projectLink} className="text-blue-600 underline">{projectLink}</a>
+                <p className="my-[0.6rem] text-muted">
+                    <strong>Project Link:</strong>{" "}
+                    <a
+                        href={projectLink}
+                        className="text-accent-bright [text-decoration-thickness:1px] underline-offset-[0.2em] transition-colors duration-150 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-accent-bright"
+                    >
+                        {projectLink}
+                    </a>
                 </p>
             )}
         </article>

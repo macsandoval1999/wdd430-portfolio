@@ -6,12 +6,11 @@ export default async function Footer() {
     "use cache";
 
     return (
-        <footer className="bg-gray-800 text-white py-4 mt-12">
-            <div className="container mx-auto text-center">
-                <p>
-                    Copyright &copy; {new Date().getFullYear()} | Marco Sandoval | All rights reserved
-                </p>
-            </div>
+        <footer className="mt-8 border-t-2 border-border bg-surface px-4 py-6 text-center text-muted">
+            <p className="m-0">
+                Copyright &copy; {new Date().getFullYear()} | Marco Sandoval |
+                All rights reserved
+            </p>
         </footer>
     );
 }

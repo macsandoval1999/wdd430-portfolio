@@ -1,42 +1,66 @@
-// This component can be reused for multiple projects by passing different prop values.
-
-// The ProjectCardProps interface defines the expected props for the component, providing type safety and documentation.
-interface ProjectCardProps {
+export interface Project {
+    lastUpdated: string;
     title: string;
     description: string;
     technologies: string[];
-    link?: string;
+    repository?: string;
+    website?: string;
+    course?: string;
 }
 
 // The component uses destructuring to access props directly in the function parameters.
 export default function ProjectCard({
+    lastUpdated,
     title,
     description,
     technologies,
-    link,
-}: ProjectCardProps) {
+    repository,
+    website,
+    course,
+}: Project) {
     return (
-        // Tailwind CSS classes are applied for styling, including padding, borders, background color, and typography.
-        <article className="p-4 border-l-4 border-blue-600 bg-gray-50 rounded">
-            <h3 className="text-xl text-gray-900 font-bold mb-2">{title}</h3>
-            <p className="text-gray-700 mb-3">{description}</p>
-            <p className="text-sm text-gray-600">
+        <article className="flex h-full min-w-0 flex-col border-2 border-l-[5px] border-border border-l-accent bg-surface p-[1.4rem] shadow-[4px_4px_0_#090609] transition duration-200 ease-out hover:-translate-y-1 hover:border-accent-bright hover:shadow-[6px_6px_0_#090609] motion-reduce:transition-none [&_strong]:text-foreground">
+            <h3 className="mb-[0.65rem] mt-0 text-[1.35rem] leading-[1.3] text-foreground">
+                {title}
+            </h3>
+            <p className="my-[0.6rem] text-muted">{description}</p>
+            <p className="my-[0.6rem] font-mono text-[0.85rem] text-muted">
                 <strong>Technologies:</strong> {technologies.join(", ")}
             </p>
+            {course && (
+                <p className="my-[0.6rem]">
+                    <strong>Course:</strong> {course}
+                </p>
+            )}
             {/* Conditional rendering is used to only show the project link if a URL is provided. */}
-            {link && (
-                <p className="mt-2">
+            {repository && (
+                <p className="my-[0.6rem]">
                     {/* Use an HTML <a> element for external URLs (like GitHub). Use Next.js Link for internal routes within your app. */}
                     <a
-                        href={link}
+                        href={repository}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:underline"
+                        className="text-accent-bright [text-decoration-thickness:1px] underline-offset-[0.2em] transition-colors duration-150 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-accent-bright"
                     >
-                        View Project
+                        View Repository
                     </a>
                 </p>
             )}
+            {website && (
+                <p className="my-[0.6rem]">
+                    <a
+                        href={website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-accent-bright [text-decoration-thickness:1px] underline-offset-[0.2em] transition-colors duration-150 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-accent-bright"
+                    >
+                        View Website
+                    </a>
+                </p>
+            )}
+            <p className="mt-auto w-full pt-4 text-right font-mono text-[0.8rem] text-muted">
+                <strong>Last Updated:</strong> {lastUpdated}
+            </p>
         </article>
     );
 }
