@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         description: siteDescription,
         images: [
             {
-                url: "/shared-preview.png",
+                url: "/opengraph-image",
                 width: 1200,
                 height: 630,
                 alt: "Marco Sandoval portfolio preview",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: siteTitle,
         description: siteDescription,
-        images: ["/shared-preview.png"],
+        images: ["/opengraph-image"],
     },
 };
 

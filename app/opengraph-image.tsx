@@ -1,11 +1,9 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Marco Sandoval portfolio preview";
-export const size = {
+const previewSize = {
     width: 1200,
     height: 630,
 };
-export const contentType = "image/png";
 
 export default function previewImage() {
     return new ImageResponse(
@@ -88,6 +86,6 @@ export default function previewImage() {
                 </div>
             </div>
         ),
-        { ...size },
+        previewSize,
     );
 }
