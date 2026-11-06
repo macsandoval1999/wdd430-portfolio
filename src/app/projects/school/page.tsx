@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ProjectList from "@/src/components/projects/ProjectList";
-import { schoolProjects } from "@/src/components/projects/projects";
+import { getProjects } from "@/src/lib/projects-db";
 
 export const metadata: Metadata = {
     title: "School Projects",
@@ -9,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function SchoolProjectsPage() {
+    const schoolProjects = getProjects("school");
+
     return (
         <>
             <header className="mb-8">

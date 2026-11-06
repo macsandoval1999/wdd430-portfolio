@@ -1,7 +1,21 @@
-import type { Project } from "./ProjectCard";
+export type ProjectType = "opensource" | "school";
+
+export interface Project {
+    id: number;
+    title: string;
+    description: string;
+    type: ProjectType;
+    technologies: string[];
+    website?: string;
+    repository?: string;
+    course?: string;
+    lastUpdated: string;
+}
 
 export const schoolProjects: Project[] = [
     {
+        id: 1,
+        type: "school",
         lastUpdated: "10/26/2026",
         title: "Trips Booking Website",
         description:
@@ -21,6 +35,8 @@ export const schoolProjects: Project[] = [
         course: "CSE 341",
     },
     {
+        id: 2,
+        type: "school",
         lastUpdated: "12/11/2025",
         title: "Car Dealership Website",
         description:
@@ -31,6 +47,8 @@ export const schoolProjects: Project[] = [
         course: "WDD 231",
     },
     {
+        id: 3,
+        type: "school",
         lastUpdated: "11/30/2025",
         title: "City Chamber Website",
         description:
@@ -42,6 +60,8 @@ export const schoolProjects: Project[] = [
         course: "WDD 231",
     },
     {
+        id: 4,
+        type: "school",
         lastUpdated: "02/14/2026",
         title: "Interactive Solar System Website",
         description:
@@ -56,4 +76,13 @@ export const schoolProjects: Project[] = [
 
 export const openSourceProjects: Project[] = [];
 
-export const allProjects = [...schoolProjects, ...openSourceProjects];
+export const allProjects: Project[] = [...schoolProjects, ...openSourceProjects];
+
+export function getProjects(type?: ProjectType | null): Project[] {
+    if (!type) return allProjects;
+    return allProjects.filter((project) => project.type === type);
+}
+
+export function getProjectById(id: number): Project | null {
+    return allProjects.find(project => project.id === id) ?? null;
+}

@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import ProjectList from "@/src/components/projects/ProjectList";
-import { allProjects } from "@/src/components/projects/projects";
+import { getProjects } from "@/src/lib/projects-db";
 
 export default function Home() {
+    const allProjects = getProjects();
+
     return (
         <main className="mx-auto min-h-[calc(100vh-10rem)] w-[calc(100%-2rem)] max-w-6xl py-[clamp(2.5rem,6vw,5rem)]">
             <section className="grid grid-cols-1 items-center gap-[clamp(2rem,6vw,5rem)] border-2 border-border bg-[linear-gradient(135deg,var(--surface-raised),var(--surface))] p-[clamp(1.5rem,5vw,4rem)] text-center shadow-[8px_8px_0_#090609] min-[641px]:grid-cols-[minmax(0,1fr)_minmax(12rem,18rem)] min-[641px]:text-left">

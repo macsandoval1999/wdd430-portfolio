@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ProjectList from "@/src/components/projects/ProjectList";
+import { getProjects } from "@/src/lib/projects-db";
 
 export const metadata: Metadata = {
     title: "Open Source Projects",
@@ -8,6 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default function OpenSourceProjectsPage() {
+    const openSourceProjects = getProjects("opensource");
+
     return (
         <>
             <header className="mb-8">
@@ -23,7 +26,7 @@ export default function OpenSourceProjectsPage() {
                 </p>
             </header>
             <ProjectList
-                projects={[]}
+                projects={openSourceProjects}
                 emptyState={{
                     title: "My open-source portfolio is just getting started",
                     description:

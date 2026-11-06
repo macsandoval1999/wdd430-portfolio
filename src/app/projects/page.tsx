@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ProjectList from "@/src/components/projects/ProjectList";
-import {
-    allProjects,
-    openSourceProjects,
-} from "@/src/components/projects/projects";
+import { getProjects } from "@/src/lib/projects-db";
 
 export const metadata: Metadata = {
     title: "Projects",
@@ -13,6 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
+    const allProjects = getProjects();
+    const openSourceProjects = getProjects("opensource");
+
     return (
         <>
             <header className="mb-10 border-2 border-border bg-[linear-gradient(135deg,var(--surface-raised),var(--surface))] p-[clamp(1.5rem,5vw,3rem)] shadow-[8px_8px_0_#090609]">
