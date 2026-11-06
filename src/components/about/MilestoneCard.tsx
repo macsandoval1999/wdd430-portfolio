@@ -8,7 +8,7 @@ export interface Milestone {
     description: string;
     keyWords: string[];
     projectLink?: string;
-    milestoneType?: "course" | "certification";
+    milestoneType?: "course" | "certification"| "degree";
     completionDate: string;
 }
 

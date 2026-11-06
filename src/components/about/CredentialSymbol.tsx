@@ -12,9 +12,9 @@ export default function CredentialSymbol({
     className = "size-8 [image-rendering:pixelated]",
 }: CredentialSymbolProps) {
     const iconPaths: Record<CredentialSymbolType, string> = {
-        certificate: "/certificate.svg",
-        degree: "/degree.svg",
-        course: "/course.svg",
+        certificate: "/images/certificate.svg",
+        degree: "/images/degree.svg",
+        course: "/images/course.svg",
     };
 
     return (

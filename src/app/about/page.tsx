@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Timeline from "@/components/Timeline";
-import type { Milestone } from "@/components/MilestoneCard";
-import CredentialList from "@/components/credentialList";
-import type { Credential } from "@/components/credentialCard";
+import Timeline from "@/src/components/about/Timeline";
+import type { Milestone } from "@/src/components/about/MilestoneCard";
+import CredentialList from "@/src/components/about/CredentialList";
+import type { Credential } from "@/src/components/about/CredentialCard";
 
 export const metadata: Metadata = {
     title: "About",
@@ -16,7 +16,16 @@ const milestones: Milestone[] = [
         courseName: "Web Services",
         description:
             "Web Services course covering server-side development with Node.js and Express.",
-        keyWords: ["Node.js", "Express", "APIs", "git", "Postman", "REST", "MongoDB", "Mongoose"],
+        keyWords: [
+            "Node.js",
+            "Express",
+            "APIs",
+            "git",
+            "Postman",
+            "REST",
+            "MongoDB",
+            "Mongoose",
+        ],
         milestoneType: "course",
         completionDate: "10-16-2026",
     },
@@ -43,7 +52,15 @@ const milestones: Milestone[] = [
         courseName: "Web Backend Development",
         description:
             "Web backend development course focusing on server-side technologies.",
-        keyWords: ["Node.js", "Express", "APIs", "git", "EJS", "pgAdmin", "PostgreSQL"],
+        keyWords: [
+            "Node.js",
+            "Express",
+            "APIs",
+            "git",
+            "EJS",
+            "pgAdmin",
+            "PostgreSQL",
+        ],
         milestoneType: "course",
         completionDate: "04-14-2026",
     },
@@ -107,10 +124,14 @@ const milestones: Milestone[] = [
         certificationName: "Web and Computer Programming Certification",
         description:
             "Received certification for completing the Web and Computer Programming program.",
-        keyWords: ["Frontend Web Development", "Programming", "Object-Oriented Programming"],
+        keyWords: [
+            "Frontend Web Development",
+            "Programming",
+            "Object-Oriented Programming",
+        ],
         milestoneType: "certification",
-        completionDate: "12-13-2025"
-    }
+        completionDate: "12-13-2025",
+    },
 ];
 
 const credentials: Credential[] = [
@@ -125,26 +146,26 @@ const credentials: Credential[] = [
         name: "Associate degree in Software Development (in progress)",
         type: "degree",
         completed: false,
-        expectedDate: "12/2026"
+        expectedDate: "12/2026",
     },
     {
         name: "Bachelor's degree in Software Engineering (in progress)",
         type: "degree",
         completed: false,
-        expectedDate: "12/2027"
+        expectedDate: "12/2027",
     },
     {
         name: "Web Development Certification",
         type: "certificate",
         completed: false,
-        expectedDate: "12/2026"
+        expectedDate: "12/2026",
     },
     {
         name: "Software Development Certification",
         type: "certificate",
         completed: false,
-        expectedDate: "12/2027"
-    }
+        expectedDate: "12/2027",
+    },
 ];
 
 export default function About() {

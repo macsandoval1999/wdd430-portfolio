@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/src/components/layout/Header";
+import Footer from "@/src/components/layout/Footer";
 
 const siteTitle = "Marco Sandoval | Portfolio";
 const siteDescription =
@@ -51,17 +51,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className="scroll-smooth motion-reduce:scroll-auto">
-            <head>
-                <link rel="preconnect" href="https://fonts.googleapis.com" />
-                <link
-                    rel="preconnect"
-                    href="https://fonts.gstatic.com"
-                    crossOrigin="anonymous"
-                />
-            </head>
             <body>
                 <Header />
-                {children}
+                <main>
+                    {children}
+                </main>
                 <Footer />
             </body>
         </html>

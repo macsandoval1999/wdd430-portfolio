@@ -1,4 +1,4 @@
-import CredentialCard, { type Credential } from "./credentialCard";
+import CredentialCard, { type Credential } from "./CredentialCard";
 
 interface CredentialListProps {
     credentials: Credential[];
