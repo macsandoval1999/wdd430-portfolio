@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import Header from "@/src/components/layout/Header";
 import Footer from "@/src/components/layout/Footer";
+import ScrollToTop from "@/src/components/behaviors/ScrollToTop";
 
 const siteTitle = "Marco Sandoval | Portfolio";
 const siteDescription =
@@ -50,8 +52,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en" className="scroll-smooth motion-reduce:scroll-auto">
+        <html lang="en" data-scroll-behavior="smooth" className="scroll-smooth motion-reduce:scroll-auto">
             <body>
+                <Suspense fallback={null}>
+                    <ScrollToTop />
+                </Suspense>
                 <Header />
                 <main>
                     {children}

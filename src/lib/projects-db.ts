@@ -15,6 +15,7 @@ export const schoolProjects: Project[] = [
             "JavaScript",
             "CSS",
             "MongoDB",
+            "Github",
             "Mongoose",
             "REST APIs",
         ],
@@ -30,7 +31,7 @@ export const schoolProjects: Project[] = [
         title: "Car Dealership Website",
         description:
             "A static dealership website built to practice presenting business information with a clean, responsive web experience.",
-        technologies: ["HTML", "CSS", "JavaScript"],
+        technologies: ["HTML", "CSS", "JavaScript", "Github"],
         repository: "https://github.com/macsandoval1999/wdd231/tree/main/final",
         website: "https://macsandoval1999.github.io/wdd231/final/index.html",
         course: "WDD 231",
@@ -42,7 +43,13 @@ export const schoolProjects: Project[] = [
         title: "City Chamber Website",
         description:
             "A community-focused chamber website with local information and a small integration with a third-party weather API.",
-        technologies: ["HTML", "CSS", "JavaScript", "Third-party API"],
+        technologies: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Third-party API",
+            "Github",
+        ],
         repository:
             "https://github.com/macsandoval1999/wdd231/tree/main/chamber",
         website: "https://macsandoval1999.github.io/wdd231/chamber/index.html",
@@ -55,11 +62,37 @@ export const schoolProjects: Project[] = [
         title: "Interactive Solar System Website",
         description:
             "An interactive solar system experience for exploring planets and their orbits, with data from third-party APIs.",
-        technologies: ["HTML", "CSS", "JavaScript", "Third-party APIs"],
+        technologies: [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Third-party APIs",
+            "Github",
+        ],
         repository: "https://github.com/macsandoval1999/solarsys-expedition",
         website:
             "https://macsandoval1999.github.io/solarsys-expedition/index.html",
         course: "WDD 330",
+    },
+    {
+        id: 5,
+        type: "school",
+        lastUpdated: "11/07/2026",
+        title: "Sacrament Meetings",
+        description:
+            "A website for managing and viewing sacrament meetings, with features for scheduling and tracking attendance. Other features include hymn management and speaker assignments. Still under development.",
+        technologies: [
+            "Next.js",
+            "TypeScript",
+            "Tailwind CSS",
+            "React",
+            "MongoDB",
+            "Vercel",
+            "Github",
+        ],
+        repository: "https://github.com/macsandoval1999/sacrament-meetings",
+        website: "https://sacrament-meetings-wick-mode.vercel.app/",
+        course: "WDD 430",
     },
 ];
 

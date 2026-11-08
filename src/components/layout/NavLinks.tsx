@@ -18,7 +18,7 @@ const links = [
 // Styles for navigation links
 // It is easier to read when separated from the component logic and easier to maintain
 const linkStyles =
-    "inline-flex border-2 px-3 py-2 font-mono text-[0.9rem] no-underline transition-colors duration-150 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-bright";
+    "flex border-2 px-3 py-2 font-mono text-[0.9rem] no-underline transition-colors duration-150 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-bright";
 const activeLinkStyles = "border-accent bg-accent text-[#fff7f2]";
 const inactiveLinkStyles = "border-transparent text-muted hover:border-border hover:text-accent-bright";
 

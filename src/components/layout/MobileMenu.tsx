@@ -10,7 +10,7 @@ import type { ReactNode } from "react";
 // Styles for the mobile menu container
 // It is easier to read when separated from the component logic and easier to maintain
 const menuStyles =
-    "absolute top-[calc(100%-0.25rem)] right-5 w-[min(18rem,calc(100%-2.5rem))] rounded-2xl border border-border bg-surface p-2 shadow-2xl shadow-black/30 transition-[opacity,translate,visibility] duration-300 ease-out motion-reduce:transition-none sm:right-8 lg:visible lg:static lg:mt-10 lg:w-auto lg:translate-y-0 lg:rounded-none lg:border-0 lg:p-0 lg:opacity-100 lg:shadow-none";
+    "absolute top-[calc(100%-0.25rem)] right-4 w-[min(18rem,calc(100%-2rem))] border-2 border-border bg-surface p-2 shadow-[4px_4px_0_#090609] transition-[opacity,translate,visibility] duration-300 ease-out motion-reduce:transition-none lg:visible lg:static lg:w-auto lg:translate-y-0 lg:border-0 lg:p-0 lg:opacity-100 lg:shadow-none";
 const openMenuStyles = "visible translate-y-0 opacity-100";
 const closedMenuStyles = "invisible pointer-events-none -translate-y-2 opacity-0 lg:pointer-events-auto";
 
@@ -93,7 +93,7 @@ export default function MobileMenu({ children }: { children: ReactNode }) {
                 aria-controls="primary-navigation"
                 aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
                 onClick={() => setIsOpen((open) => !open)}
-                className="flex h-11 w-11 items-center justify-center rounded-xl border border-border text-foreground transition-colors hover:bg-action focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
+                className="flex h-11 w-11 shrink-0 items-center justify-center border border-border text-foreground transition-colors hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
             >
                 <span aria-hidden="true" className="relative block h-5 w-5">
                     <span

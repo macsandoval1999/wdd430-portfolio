@@ -7,6 +7,14 @@ export default async function Footer() {
 
     return (
         <footer className="mt-8 border-t-2 border-border bg-surface px-4 py-6 text-center text-muted">
+            <a
+                href="https://github.com/macsandoval1999/wdd430-portfolio"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent-bright [text-decoration-thickness:1px] underline-offset-[0.2em] transition-colors duration-150 hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-accent-bright"
+            >
+                GitHub Repository
+            </a>
             <p className="m-0">
                 Copyright &copy; {new Date().getFullYear()} | Marco Sandoval |
                 All rights reserved
