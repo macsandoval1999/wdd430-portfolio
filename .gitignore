@@ -43,3 +43,8 @@ next-env.d.ts
 # plans and specs
 /plans
 /version-specs
+
+# local development
+/docs
+.github/
+.specify/

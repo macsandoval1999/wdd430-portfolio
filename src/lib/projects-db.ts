@@ -1,16 +1,5 @@
-export type ProjectType = "opensource" | "school";
-
-export interface Project {
-    id: number;
-    title: string;
-    description: string;
-    type: ProjectType;
-    technologies: string[];
-    website?: string;
-    repository?: string;
-    course?: string;
-    lastUpdated: string;
-}
+// First we import the Project and ProjectType types to ensure our projects array adheres to the correct structure.
+import type { Project, ProjectType } from "../types/projects-types";
 
 export const schoolProjects: Project[] = [
     {
@@ -78,11 +67,14 @@ export const openSourceProjects: Project[] = [];
 
 export const allProjects: Project[] = [...schoolProjects, ...openSourceProjects];
 
+// GET ALL: get all projects
+// GET ALL by type: get all projects filtered by type if provided.
 export function getProjects(type?: ProjectType | null): Project[] {
     if (!type) return allProjects;
     return allProjects.filter((project) => project.type === type);
 }
 
+// GET by ID: get one project by its ID
 export function getProjectById(id: number): Project | null {
     return allProjects.find(project => project.id === id) ?? null;
 }

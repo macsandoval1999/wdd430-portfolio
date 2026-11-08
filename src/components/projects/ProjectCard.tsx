@@ -1,12 +1,4 @@
-export interface Project {
-    lastUpdated: string;
-    title: string;
-    description: string;
-    technologies: string[];
-    repository?: string;
-    website?: string;
-    course?: string;
-}
+import type { Project } from "@/src/types/projects-types";
 
 // The component uses destructuring to access props directly in the function parameters.
 export default function ProjectCard({

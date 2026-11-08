@@ -1,6 +1,6 @@
 // The ProjectList component renders a list of ProjectCard components, passing project data as props.
 import ProjectCard from "./ProjectCard";
-import type { Project } from "./ProjectCard";
+import type { Project } from "@/src/types/projects-types";
 
 // The ProjectListProps interface defines the expected structure of the projects array.
 interface ProjectListProps {
