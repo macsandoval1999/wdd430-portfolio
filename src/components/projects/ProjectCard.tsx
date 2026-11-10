@@ -2,7 +2,7 @@ import type { Project } from "@/src/types/projects-types";
 
 // The component uses destructuring to access props directly in the function parameters.
 export default function ProjectCard({
-    lastUpdated,
+    last_updated,
     title,
     description,
     technologies,
@@ -51,7 +51,7 @@ export default function ProjectCard({
                 </p>
             )}
             <p className="mt-auto w-full pt-4 text-right font-mono text-[0.8rem] text-muted">
-                <strong>Last Updated:</strong> {lastUpdated}
+                <strong>Last Updated:</strong> {last_updated}
             </p>
         </article>
     );

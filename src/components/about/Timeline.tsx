@@ -1,4 +1,5 @@
-import MilestoneCard, { type Milestone } from "./MilestoneCard";
+import MilestoneCard from "./MilestoneCard";
+import type { Milestone } from "@/src/types/about-types";
 
 // The MilestoneListProps interface defines the expected structure of the milestones array.
 interface MilestoneListProps {
@@ -22,7 +23,7 @@ export default function Timeline({ milestones }: MilestoneListProps) {
             {sortedMilestones.map((milestone, index) => (
                 // The number is derived from the sorted position (oldest = 1), so adding an earlier milestone renumbers the rest automatically.
                 <MilestoneCard
-                    key={milestone.title}
+                    key={milestone.id}
                     {...milestone}
                     milestoneNumber={sortedMilestones.length - index}
                 />

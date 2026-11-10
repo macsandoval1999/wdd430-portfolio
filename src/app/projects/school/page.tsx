@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
-import ProjectList from "@/src/components/projects/ProjectList";
-import { getProjects } from "@/src/lib/projects-db";
+import ProjectListLoader from "@/src/components/projects/ProjectListLoader";
+import SectionLoading from "@/src/components/behaviors/SectionLoading";
 
 export const metadata: Metadata = {
     title: "School Projects",
@@ -9,8 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default function SchoolProjectsPage() {
-    const schoolProjects = getProjects("school");
-
     return (
         <>
             <header className="mb-8">
@@ -22,11 +21,13 @@ export default function SchoolProjectsPage() {
                 </h1>
                 <p className="mb-0 mt-5 max-w-[44rem] text-[clamp(1rem,2vw,1.2rem)] text-muted">
                     These projects were created as part of my coursework and
-                    gave me hands-on practice with frontend development,
-                    backend systems, APIs, and databases.
+                    gave me hands-on practice with frontend development, backend
+                    systems, APIs, and databases.
                 </p>
             </header>
-            <ProjectList projects={schoolProjects} />
+            <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+                <ProjectListLoader type="school" />
+            </Suspense>
         </>
     );
 }

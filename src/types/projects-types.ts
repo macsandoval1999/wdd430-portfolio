@@ -11,8 +11,8 @@ export interface Project {
     description: string;
     type: ProjectType;
     technologies: string[];
-    website?: string;
-    repository?: string;
-    course?: string;
-    lastUpdated: string;
+    website?: string | null;
+    repository?: string | null;
+    course?: string | null;
+    last_updated: string;
 }

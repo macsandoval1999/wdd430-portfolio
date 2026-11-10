@@ -1,10 +1,11 @@
-import CredentialCard, { type Credential } from "./CredentialCard";
+import CredentialCard from "./CredentialCard";
+import type { Credential } from "@/src/types/about-types";
 
 interface CredentialListProps {
     credentials: Credential[];
 }
 
-function getDateTimestamp(date: string | undefined): number | undefined {
+function getDateTimestamp(date: string | null): number | undefined {
     if (!date) return undefined;
 
     const parts = date.split("/").map(Number);
@@ -32,9 +33,7 @@ function getDateTimestamp(date: string | undefined): number | undefined {
     return timestamp;
 }
 
-export default function CredentialList({
-    credentials,
-}: CredentialListProps) {
+export default function CredentialList({ credentials }: CredentialListProps) {
     const sortedCredentials = [...credentials].sort((a, b) => {
         if (a.completed !== b.completed) return a.completed ? -1 : 1;
 
@@ -66,7 +65,7 @@ export default function CredentialList({
             aria-label="Credentials"
         >
             {sortedCredentials.map((credential) => (
-                <li key={credential.name}>
+                <li key={credential.id}>
                     <CredentialCard credential={credential} />
                 </li>
             ))}

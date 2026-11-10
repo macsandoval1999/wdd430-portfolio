@@ -1,7 +1,8 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProjectList from "@/src/components/projects/ProjectList";
-import { getProjects } from "@/src/lib/projects-db";
+import ProjectListLoader from "@/src/components/projects/ProjectListLoader";
+import SectionLoading from "@/src/components/behaviors/SectionLoading";
 
 export const metadata: Metadata = {
     title: "Projects",
@@ -10,9 +11,6 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectsPage() {
-    const allProjects = getProjects();
-    const openSourceProjects = getProjects("opensource");
-
     return (
         <>
             <header className="mb-10 border-2 border-border bg-[linear-gradient(135deg,var(--surface-raised),var(--surface))] p-[clamp(1.5rem,5vw,3rem)] shadow-[8px_8px_0_#090609]">
@@ -45,7 +43,9 @@ export default function ProjectsPage() {
                         Browse school projects
                     </Link>
                 </div>
-                <ProjectList projects={allProjects} limit={2} />
+                <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+                    <ProjectListLoader limit={2} />
+                </Suspense>
             </section>
 
             <section className="border-t-2 border-border pt-10">
@@ -56,14 +56,16 @@ export default function ProjectsPage() {
                     Open source
                 </h2>
                 <div className="mb-5 max-w-[42rem]">
-                    <ProjectList
-                        projects={openSourceProjects}
-                        emptyState={{
-                            title: "Open-source work is on the horizon",
-                            description:
-                                "I don’t have public open-source projects to share yet. This section will feature them as I begin contributing to community projects.",
-                        }}
-                    />
+                    <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+                        <ProjectListLoader
+                            type="opensource"
+                            emptyState={{
+                                title: "Open-source work is on the horizon",
+                                description:
+                                    "I don’t have public open-source projects to share yet. This section will feature them as I begin contributing to community projects.",
+                            }}
+                        />
+                    </Suspense>
                 </div>
                 <Link
                     href="/projects/opensource"

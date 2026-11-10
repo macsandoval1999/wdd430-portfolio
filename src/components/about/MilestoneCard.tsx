@@ -1,16 +1,5 @@
 import CredentialSymbol from "./CredentialSymbol";
-
-export interface Milestone {
-    title: string;
-    milestoneId?: string;
-    courseName?: string;
-    certificationName?: string;
-    description: string;
-    keyWords: string[];
-    projectLink?: string;
-    milestoneType?: "course" | "certification"| "degree";
-    completionDate: string;
-}
+import type { Milestone } from "@/src/types/about-types";
 
 interface MilestoneCardProps extends Milestone {
     milestoneNumber: number;
@@ -33,7 +22,7 @@ export default function MilestoneCard({
 
     return (
         <article
-            id={milestoneId}
+            id={milestoneId ?? undefined}
             className={
                 isCertification
                     ? "scroll-mt-6 relative min-w-0 border-2 border-accent border-l-[5px] bg-[linear-gradient(135deg,#35161f,var(--surface))] p-[1.4rem] pt-[3.2rem] shadow-[4px_4px_0_#090609] transition duration-200 ease-out hover:-translate-y-1 hover:border-accent-bright hover:shadow-[6px_6px_0_#090609] motion-reduce:transition-none min-[641px]:col-span-2 [&_strong]:text-foreground"

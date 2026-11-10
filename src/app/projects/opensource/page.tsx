@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
-import ProjectList from "@/src/components/projects/ProjectList";
-import { getProjects } from "@/src/lib/projects-db";
+import ProjectListLoader from "@/src/components/projects/ProjectListLoader";
+import SectionLoading from "@/src/components/behaviors/SectionLoading";
 
 export const metadata: Metadata = {
     title: "Open Source Projects",
@@ -9,8 +10,6 @@ export const metadata: Metadata = {
 };
 
 export default function OpenSourceProjectsPage() {
-    const openSourceProjects = getProjects("opensource");
-
     return (
         <>
             <header className="mb-8">
@@ -25,14 +24,16 @@ export default function OpenSourceProjectsPage() {
                     collaboration with the open-source community.
                 </p>
             </header>
-            <ProjectList
-                projects={openSourceProjects}
-                emptyState={{
-                    title: "My open-source portfolio is just getting started",
-                    description:
-                        "I don’t have public open-source projects to share yet. Check back later for updates as I begin contributing to community projects.",
-                }}
-            />
+            <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+                <ProjectListLoader
+                    type="opensource"
+                    emptyState={{
+                        title: "My open-source portfolio is just getting started",
+                        description:
+                            "I don’t have public open-source projects to share yet. Check back later for updates as I begin contributing to community projects.",
+                    }}
+                />
+            </Suspense>
         </>
     );
 }

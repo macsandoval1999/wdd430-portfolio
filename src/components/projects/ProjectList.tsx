@@ -21,16 +21,9 @@ export default function ProjectList({
             "There are no projects to share here just yet. Please check back soon for updates.",
     },
 }: ProjectListProps) {
-    const sortedProjects = [...projects].sort((a, b) => {
-        const toTimestamp = (date: string) => {
-            const [month, day, year] = date.split("/").map(Number);
-            return Date.UTC(year, month - 1, day);
-        };
-
-        return toTimestamp(b.lastUpdated) - toTimestamp(a.lastUpdated);
-    });
+    // Projects arrive already sorted by most recently updated from the database.
     const displayedProjects =
-        limit === undefined ? sortedProjects : sortedProjects.slice(0, limit);
+        limit === undefined ? projects : projects.slice(0, limit);
 
     if (displayedProjects.length === 0) {
         return (
@@ -58,7 +51,7 @@ export default function ProjectList({
             aria-label="Projects"
         >
             {displayedProjects.map((project) => (
-                <ProjectCard key={project.title} {...project} />
+                <ProjectCard key={project.id} {...project} />
             ))}
         </section>
     );

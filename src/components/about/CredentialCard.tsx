@@ -1,21 +1,11 @@
 import CredentialSymbol from "./CredentialSymbol";
-
-export interface Credential {
-    name: string;
-    type: "certificate" | "degree";
-    completed?: boolean;
-    completedDate?: string;
-    expectedDate?: string;
-    milestoneId?: string;
-}
+import type { Credential } from "@/src/types/about-types";
 
 interface CredentialCardProps {
     credential: Credential;
 }
 
-export default function CredentialCard({
-    credential,
-}: CredentialCardProps) {
+export default function CredentialCard({ credential }: CredentialCardProps) {
     const className = `flex min-h-28 flex-col justify-between gap-3 border-2 p-5 text-foreground shadow-[4px_4px_0_#090609] transition duration-200 ease-out hover:-translate-y-1 hover:border-accent-bright hover:shadow-[6px_6px_0_#090609] motion-reduce:transition-none ${
         credential.completed
             ? "border-accent bg-[linear-gradient(135deg,#35161f,var(--surface))]"
