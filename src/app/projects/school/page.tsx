@@ -25,7 +25,14 @@ export default function SchoolProjectsPage() {
                     systems, APIs, and databases.
                 </p>
             </header>
-            <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+            <Suspense
+                fallback={
+                    <SectionLoading
+                        label="Loading projects..."
+                        variant="projects"
+                    />
+                }
+            >
                 <ProjectListLoader type="school" />
             </Suspense>
         </>

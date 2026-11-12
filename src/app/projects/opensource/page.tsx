@@ -24,7 +24,14 @@ export default function OpenSourceProjectsPage() {
                     collaboration with the open-source community.
                 </p>
             </header>
-            <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+            <Suspense
+                fallback={
+                    <SectionLoading
+                        label="Loading projects..."
+                        variant="projects"
+                    />
+                }
+            >
                 <ProjectListLoader
                     type="opensource"
                     emptyState={{

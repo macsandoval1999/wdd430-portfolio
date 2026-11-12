@@ -42,7 +42,14 @@ export default function About() {
                         Awards and education
                     </h2>
                 </div>
-                <Suspense fallback={<SectionLoading label="Loading credentials..." />}>
+                <Suspense
+                    fallback={
+                        <SectionLoading
+                            label="Loading credentials..."
+                            variant="credentials"
+                        />
+                    }
+                >
                     <CredentialListLoader />
                 </Suspense>
             </section>
@@ -55,7 +62,14 @@ export default function About() {
                         My learning timeline
                     </h2>
                 </div>
-                <Suspense fallback={<SectionLoading label="Loading milestones..." />}>
+                <Suspense
+                    fallback={
+                        <SectionLoading
+                            label="Loading milestones..."
+                            variant="milestones"
+                        />
+                    }
+                >
                     <TimelineLoader />
                 </Suspense>
             </section>

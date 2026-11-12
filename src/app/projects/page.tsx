@@ -43,7 +43,14 @@ export default function ProjectsPage() {
                         Browse school projects
                     </Link>
                 </div>
-                <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+                <Suspense
+                    fallback={
+                        <SectionLoading
+                            label="Loading projects..."
+                            variant="projects"
+                        />
+                    }
+                >
                     <ProjectListLoader limit={2} />
                 </Suspense>
             </section>
@@ -56,7 +63,14 @@ export default function ProjectsPage() {
                     Open source
                 </h2>
                 <div className="mb-5 max-w-[42rem]">
-                    <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+                    <Suspense
+                        fallback={
+                            <SectionLoading
+                                label="Loading projects..."
+                                variant="projects"
+                            />
+                        }
+                    >
                         <ProjectListLoader
                             type="opensource"
                             emptyState={{

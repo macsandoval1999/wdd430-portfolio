@@ -61,7 +61,14 @@ export default function Home() {
                         View all projects
                     </Link>
                 </div>
-                <Suspense fallback={<SectionLoading label="Loading projects..." />}>
+                <Suspense
+                    fallback={
+                        <SectionLoading
+                            label="Loading projects..."
+                            variant="projects"
+                        />
+                    }
+                >
                     <ProjectListLoader limit={2} />
                 </Suspense>
             </section>
