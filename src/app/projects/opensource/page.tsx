@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import ProjectListLoader from "@/src/components/projects/ProjectListLoader";
+import ProjectResultsLoader from "@/src/components/projects/ProjectResultsLoader";
+import ProjectSearchLoader from "@/src/components/projects/ProjectSearchLoader";
 import SectionLoading from "@/src/components/behaviors/SectionLoading";
 
 export const metadata: Metadata = {
@@ -9,7 +10,11 @@ export const metadata: Metadata = {
         "Open-source projects and community contributions by Marco Sandoval.",
 };
 
-export default function OpenSourceProjectsPage() {
+export default async function OpenSourceProjectsPage({
+    searchParams,
+}: {
+    searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
     return (
         <>
             <header className="mb-8">
@@ -26,14 +31,29 @@ export default function OpenSourceProjectsPage() {
             </header>
             <Suspense
                 fallback={
+                    <div
+                        aria-hidden="true"
+                        className="mb-6 h-[5.5rem] border-2 border-border bg-surface motion-safe:animate-pulse"
+                    />
+                }
+            >
+                <ProjectSearchLoader
+                    searchParams={searchParams}
+                    fixedType="opensource"
+                />
+            </Suspense>
+            <Suspense
+                fallback={
                     <SectionLoading
                         label="Loading projects..."
                         variant="projects"
                     />
                 }
             >
-                <ProjectListLoader
-                    type="opensource"
+                <ProjectResultsLoader
+                    pathname="/projects/opensource"
+                    searchParams={searchParams}
+                    fixedType="opensource"
                     emptyState={{
                         title: "My open-source portfolio is just getting started",
                         description:

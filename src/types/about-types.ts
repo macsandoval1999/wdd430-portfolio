@@ -27,3 +27,8 @@ export interface Milestone {
     milestoneType: MilestoneType;
     completionDate: string;
 }
+
+
+/*
+Types are used to define the structure of objects. Types can specify the shape of an object, including the types of its properties and whether they are optional or required. Types are imported into data handling files to ensure that the data conforms to the expected structure. They are also imported into components to provide type safety and autocompletion when accessing object properties.
+*/

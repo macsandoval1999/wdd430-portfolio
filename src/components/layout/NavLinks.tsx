@@ -36,6 +36,7 @@ export default function NavLinks() {
                         pathname === href ||
                         (href === "/projects" &&
                             pathname.startsWith("/projects/"));
+
                     return (
                         // key prop is used to uniquely identify each list item for efficient rendering by React. key is typically set to a unique value like the href of the link. It helps React efficiently update and re-render only the necessary items when the list changes.
                         <li key={href}>
@@ -45,7 +46,9 @@ export default function NavLinks() {
                                 aria-current={isActive ? "page" : undefined}
                                 // In className, you can start by defining the base styles for the link, and then conditionally apply additional styles based on whether the link is active or not.
                                 className={`${linkStyles} ${
-                                    isActive ? activeLinkStyles : inactiveLinkStyles
+                                    isActive
+                                        ? activeLinkStyles
+                                        : inactiveLinkStyles
                                 }`}
                             >
                                 {label}

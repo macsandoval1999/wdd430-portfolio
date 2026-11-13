@@ -22,8 +22,10 @@ export default function ProjectList({
     },
 }: ProjectListProps) {
     // Projects arrive already sorted by most recently updated from the database.
-    const displayedProjects =
-        limit === undefined ? projects : projects.slice(0, limit);
+    let displayedProjects = projects;
+    if (limit !== undefined) {
+        displayedProjects = projects.slice(0, limit);
+    }
 
     if (displayedProjects.length === 0) {
         return (

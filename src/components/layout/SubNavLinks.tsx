@@ -15,13 +15,18 @@ interface SubNavLinksProps {
 
 export default function SubNavLinks({ links, label }: SubNavLinksProps) {
     const pathname = usePathname();
-    const activeHref = links
+    const activeLinks = links
         .filter(
             ({ href }) =>
                 pathname === href ||
                 (href !== "/" && pathname.startsWith(`${href}/`))
-        )
-        .sort((a, b) => b.href.length - a.href.length)[0]?.href;
+        );
+    activeLinks.sort((a, b) => b.href.length - a.href.length);
+
+    let activeHref: string | undefined;
+    if (activeLinks.length > 0) {
+        activeHref = activeLinks[0].href;
+    }
 
     return (
         <nav

@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import ProjectListLoader from "@/src/components/projects/ProjectListLoader";
+import ProjectResultsLoader from "@/src/components/projects/ProjectResultsLoader";
+import ProjectSearchLoader from "@/src/components/projects/ProjectSearchLoader";
 import SectionLoading from "@/src/components/behaviors/SectionLoading";
 
 export const metadata: Metadata = {
@@ -9,7 +10,11 @@ export const metadata: Metadata = {
         "Projects Marco Sandoval has built as part of his software development coursework.",
 };
 
-export default function SchoolProjectsPage() {
+export default async function SchoolProjectsPage({
+    searchParams,
+}: {
+    searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
     return (
         <>
             <header className="mb-8">
@@ -27,13 +32,30 @@ export default function SchoolProjectsPage() {
             </header>
             <Suspense
                 fallback={
+                    <div
+                        aria-hidden="true"
+                        className="mb-6 h-[5.5rem] border-2 border-border bg-surface motion-safe:animate-pulse"
+                    />
+                }
+            >
+                <ProjectSearchLoader
+                    searchParams={searchParams}
+                    fixedType="school"
+                />
+            </Suspense>
+            <Suspense
+                fallback={
                     <SectionLoading
                         label="Loading projects..."
                         variant="projects"
                     />
                 }
             >
-                <ProjectListLoader type="school" />
+                <ProjectResultsLoader
+                    pathname="/projects/school"
+                    searchParams={searchParams}
+                    fixedType="school"
+                />
             </Suspense>
         </>
     );

@@ -17,8 +17,13 @@ function getDateTimestamp(date: string | null): number | undefined {
     }
 
     const [month, dayOrYear, maybeYear] = parts;
-    const day = maybeYear === undefined ? 1 : dayOrYear;
-    const year = maybeYear ?? dayOrYear;
+    let day = dayOrYear;
+    let year = dayOrYear;
+    if (maybeYear === undefined) {
+        day = 1;
+    } else {
+        year = maybeYear;
+    }
     const timestamp = Date.UTC(year, month - 1, day);
     const parsedDate = new Date(timestamp);
 
@@ -35,24 +40,39 @@ function getDateTimestamp(date: string | null): number | undefined {
 
 export default function CredentialList({ credentials }: CredentialListProps) {
     const sortedCredentials = [...credentials].sort((a, b) => {
-        if (a.completed !== b.completed) return a.completed ? -1 : 1;
+        if (a.completed !== b.completed) {
+            if (a.completed) {
+                return -1;
+            }
+            return 1;
+        }
 
-        const aDate = getDateTimestamp(
-            a.completed ? a.completedDate : a.expectedDate
-        );
-        const bDate = getDateTimestamp(
-            b.completed ? b.completedDate : b.expectedDate
-        );
+        let aDateValue = a.expectedDate;
+        if (a.completed) {
+            aDateValue = a.completedDate;
+        }
+        let bDateValue = b.expectedDate;
+        if (b.completed) {
+            bDateValue = b.completedDate;
+        }
+        const aDate = getDateTimestamp(aDateValue);
+        const bDate = getDateTimestamp(bDateValue);
 
         if (aDate === undefined && bDate !== undefined) return 1;
         if (aDate !== undefined && bDate === undefined) return -1;
         if (aDate !== undefined && bDate !== undefined && aDate !== bDate) {
-            return a.completed ? bDate - aDate : aDate - bDate;
+            if (a.completed) {
+                return bDate - aDate;
+            }
+            return aDate - bDate;
         }
 
         if (!a.completed && aDate !== undefined && bDate !== undefined) {
             if (a.type !== b.type) {
-                return a.type === "certificate" ? -1 : 1;
+                if (a.type === "certificate") {
+                    return -1;
+                }
+                return 1;
             }
         }
 

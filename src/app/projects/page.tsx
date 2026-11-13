@@ -37,10 +37,10 @@ export default function ProjectsPage() {
                         </h2>
                     </div>
                     <Link
-                        href="/projects/school"
+                        href="/projects/all"
                         className="font-mono text-sm text-accent-bright underline underline-offset-4 transition-colors hover:text-foreground focus-visible:outline-3 focus-visible:outline-offset-4 focus-visible:outline-accent-bright"
                     >
-                        Browse school projects
+                        Browse all projects
                     </Link>
                 </div>
                 <Suspense

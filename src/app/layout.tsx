@@ -9,11 +9,13 @@ const siteTitle = "Marco Sandoval | Portfolio";
 const siteDescription =
     "Portfolio of Marco Sandoval: background, milestones, and projects built with Next.js, TypeScript, and Tailwind CSS.";
 
-const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
+let siteUrl = "http://localhost:3000";
+if (process.env.VERCEL_URL) {
+    siteUrl = `https://${process.env.VERCEL_URL}`;
+}
+if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    siteUrl = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+}
 
 export const metadata: Metadata = {
     metadataBase: new URL(siteUrl),

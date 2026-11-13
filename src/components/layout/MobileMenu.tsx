@@ -91,19 +91,27 @@ export default function MobileMenu({ children }: { children: ReactNode }) {
                 type="button"
                 aria-expanded={isOpen}
                 aria-controls="primary-navigation"
-                aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+                aria-label={
+                    isOpen ? "Close navigation menu" : "Open navigation menu"
+                }
                 onClick={() => setIsOpen((open) => !open)}
                 className="flex h-11 w-11 shrink-0 items-center justify-center border border-border text-foreground transition-colors hover:bg-surface-raised focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
             >
                 <span aria-hidden="true" className="relative block h-5 w-5">
                     <span
-                        className={`absolute top-1 left-0 h-0.5 w-full rounded-full bg-current transition-transform duration-200 motion-reduce:transition-none ${isOpen ? "translate-y-1.5 rotate-45" : ""}`}
+                        className={`absolute top-1 left-0 h-0.5 w-full rounded-full bg-current transition-transform duration-200 motion-reduce:transition-none ${
+                            isOpen ? "translate-y-1.5 rotate-45" : ""
+                        }`}
                     />
                     <span
-                        className={`absolute top-2.5 left-0 h-0.5 w-full rounded-full bg-current transition-opacity duration-200 motion-reduce:transition-none ${isOpen ? "opacity-0" : "opacity-100"}`}
+                        className={`absolute top-2.5 left-0 h-0.5 w-full rounded-full bg-current transition-opacity duration-200 motion-reduce:transition-none ${
+                            isOpen ? "opacity-0" : "opacity-100"
+                        }`}
                     />
                     <span
-                        className={`absolute top-4 left-0 h-0.5 w-full rounded-full bg-current transition-transform duration-200 motion-reduce:transition-none ${isOpen ? "-translate-y-1.5 -rotate-45" : ""}`}
+                        className={`absolute top-4 left-0 h-0.5 w-full rounded-full bg-current transition-transform duration-200 motion-reduce:transition-none ${
+                            isOpen ? "-translate-y-1.5 -rotate-45" : ""
+                        }`}
                     />
                 </span>
             </button>
@@ -118,7 +126,9 @@ export default function MobileMenu({ children }: { children: ReactNode }) {
                         setIsOpen(false);
                     }
                 }}
-                className={`${menuStyles} ${isOpen ? openMenuStyles : closedMenuStyles}`}
+                className={`${menuStyles} ${
+                    isOpen ? openMenuStyles : closedMenuStyles
+                }`}
             >
                 {children}
             </nav>

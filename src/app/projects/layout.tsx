@@ -2,6 +2,7 @@ import SubNavLinks from "@/src/components/layout/SubNavLinks";
 
 const projectSections = [
     { href: "/projects", label: "Overview" },
+    { href: "/projects/all", label: "All Projects" },
     { href: "/projects/school", label: "School Projects" },
     { href: "/projects/opensource", label: "Open Source" },
 ];

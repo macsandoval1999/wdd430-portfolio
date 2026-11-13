@@ -37,10 +37,13 @@ export default function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    let headerPositionClass = "translate-y-0";
+    if (isHidden) headerPositionClass = "-translate-y-full";
+
     return (
         <header
             onFocusCapture={() => setIsHidden(false)}
-            className={`sticky top-0 z-50 border-b-2 border-accent bg-surface shadow-[0_4px_0_#090609] transition-transform duration-300 ease-out motion-reduce:transition-none ${isHidden ? "-translate-y-full" : "translate-y-0"}`}
+            className={`sticky top-0 z-50 border-b-2 border-accent bg-surface shadow-[0_4px_0_#090609] transition-transform duration-300 ease-out motion-reduce:transition-none ${headerPositionClass}`}
         >
             <div className="mx-auto flex min-h-20 w-[calc(100%-2rem)] max-w-6xl items-center justify-between gap-4 max-[640px]:min-h-[4.5rem] max-[640px]:py-3">
                 <Link
