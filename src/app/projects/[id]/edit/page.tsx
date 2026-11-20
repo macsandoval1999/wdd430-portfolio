@@ -4,8 +4,9 @@ import { notFound } from "next/navigation";
 import ProjectForm from "@/src/components/projects/ProjectForm";
 import SectionLoading from "@/src/components/behaviors/SectionLoading";
 import { updateProject } from "@/src/lib/projects/projects-actions";
-import { getProjectById } from "@/src/lib/projects/projects-models";
+import { fetchProjectsApi } from "@/src/lib/projects/projects-api";
 import { parseProjectId } from "@/src/lib/projects/projects-validation";
+import type { Project } from "@/src/lib/projects/projects-types";
 
 export const metadata: Metadata = { title: "Edit Project" };
 
@@ -15,10 +16,14 @@ async function EditProjectForm({params}: {params: Promise<{ id: string }>}) {
     if (projectId === null || projectId > 2147483647) {
         notFound();
     }
-    const project = await getProjectById(projectId);
-    if (!project) {
+    const response = await fetchProjectsApi(`/api/projects/${projectId}`);
+    if (response.status === 404) {
         notFound();
     }
+    if (!response.ok) {
+        throw new Error(`Failed to load project (${response.status}).`);
+    }
+    const project: Project = await response.json();
 
     const action = updateProject.bind(null, id);
     return <ProjectForm action={action} project={project} />;

@@ -14,11 +14,8 @@ import { redirect } from "next/navigation";
 // ProjectList displays the projects, and ProjectPagination provides the page navigation.
 import ProjectList from "./ProjectList";
 import ProjectPagination from "./ProjectPagination";
-// These model functions fetch the filtered projects and the number of matching pages.
-import {
-    getFilteredProjects,
-    getProjectsPageCount,
-} from "@/src/lib/projects/projects-models";
+// fetchProjectsApi requests the filtered projects and page count from the API.
+import { fetchProjectsApi } from "@/src/lib/projects/projects-api";
 // These helpers validate the URL parameters and provide defaults when needed.
 import {
     parseProjectFilter,
@@ -28,7 +25,7 @@ import {
     parseProjectSort,
 } from "@/src/lib/projects/projects-validation";
 // ProjectType defines the valid fixed project types.
-import type { ProjectType } from "@/src/lib/projects/projects-types";
+import type { Project, ProjectType } from "@/src/lib/projects/projects-types";
 
 
 
@@ -65,9 +62,23 @@ export default async function ProjectResultsLoader({
     }
     const sort = parseProjectSort(params.sort);
     const order = parseProjectOrder(params.order);
-    // Get the page count first so a page beyond the last result can be corrected.
-    const totalPages = await getProjectsPageCount(query, projectType);
-    const currentPage = Math.min(page, totalPages);
+    // The API returns the matching projects and page count, correcting an out-of-range page.
+    const apiParams = new URLSearchParams({
+        query,
+        page: String(page),
+        type: projectType,
+        sort,
+        order,
+    });
+    const response = await fetchProjectsApi(`/api/projects?${apiParams}`);
+    if (!response.ok) {
+        throw new Error(`Failed to load project results (${response.status}).`);
+    }
+    const { projects, totalPages, currentPage }: {
+        projects: Project[];
+        totalPages: number;
+        currentPage: number;
+    } = await response.json();
 
     // Redirect to the last available page, retaining the non-default search and browse parameters.
     if (page !== currentPage) {
@@ -85,13 +96,6 @@ export default async function ProjectResultsLoader({
         params.set("page", String(currentPage));
         redirect(`${pathname}?${params.toString()}`);
     }
-
-    // Fetch only the matching projects for the valid page.
-    const projects = await getFilteredProjects(query, currentPage, {
-        type: projectType,
-        sort,
-        order,
-    });
 
     // Show a search-specific message when a query has no results; otherwise use the supplied or default message.
     let resultEmptyState = emptyState;

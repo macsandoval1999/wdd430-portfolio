@@ -23,6 +23,10 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 Use **Create project** in the project navigation, or **Edit** and **Delete** on a project card. These actions write to the configured PostgreSQL database and are available in development and production. They do not require authentication: anyone who can access the application can create, edit, or delete projects.
 
+Project pages and actions use the `/api/projects` routes. Their write endpoints also do not require authentication. Server-side requests use `VERCEL_URL` on Vercel and `localhost:3000` (or `PORT`) locally. Set `PROJECT_API_ORIGIN` to the application's reachable origin when using a different host or port.
+
+`GET /api/projects` returns all projects (optionally filtered by `type`); adding `page` returns `{ projects, totalPages, currentPage }` and supports `query`, `type`, `sort`, and `order`. `GET /api/projects/{id}` returns one project. Use JSON with `POST /api/projects` or `PUT /api/projects/{id}`, and `DELETE /api/projects/{id}` to remove one.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

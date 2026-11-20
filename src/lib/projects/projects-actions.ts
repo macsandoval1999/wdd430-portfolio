@@ -1,6 +1,6 @@
 /* NOTE:
     This file contains server actions for creating, updating, and deleting projects.
-    It validates form data and project IDs, calls the backend project functions, and refreshes the project list after changes.
+    It validates form data and project IDs, calls the project API, and refreshes the project list after changes.
     The createProject and updateProject actions return validation or operation errors as ProjectFormState objects.
     The deleteProject action throws an error if the project ID is invalid or the project no longer exists.
     Successful create and update operations redirect to the project list.
@@ -18,12 +18,8 @@
 import { revalidatePath } from "next/cache";
 // redirect is used to navigate to a different page after project operations.
 import { redirect } from "next/navigation";
-// Import backend functions for project operations.
-import {
-    deleteProjectById,
-    insertProject,
-    updateProjectById,
-} from "./projects-models";
+// Send project operations to the API routes.
+import { fetchProjectsApi } from "./projects-api";
 // Import project form schema so that we can validate and parse form data.
 import { ProjectFormSchema } from "./projects-schemas";
 // import parseProjectId so that we can validate and parse project IDs.
@@ -58,7 +54,7 @@ function refreshProjects() {
 
 /****** PROJECT OPERATIONS ******/
 // createProject handles the creation of a new project.
-// It reads and validates the form data, inserts the project into the backend, and refreshes the frontend state.
+// It reads and validates the form data, sends it to the API, and refreshes the frontend state.
 export async function createProject(
     _previousState: ProjectFormState,
     formData: FormData
@@ -69,7 +65,14 @@ export async function createProject(
     }
 
     try {
-        await insertProject(parsed.data);
+        const response = await fetchProjectsApi("/api/projects", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(parsed.data),
+        });
+        if (!response.ok) {
+            throw new Error(`Project API returned ${response.status}.`);
+        }
     } catch (error) {
         console.error("Failed to create project:", error);
         return { errors: ["Unable to save the project. Please try again."] };
@@ -80,7 +83,7 @@ export async function createProject(
 }
 
 // updateProject handles the updating of an existing project.
-// It reads and validates the form data, updates the project in the backend, and refreshes the frontend state.
+// It reads and validates the form data, sends it to the API, and refreshes the frontend state.
 export async function updateProject(
     id: string,
     _previousState: ProjectFormState,
@@ -95,32 +98,42 @@ export async function updateProject(
         return { errors: parsed.error.issues.map((issue) => issue.message) };
     }
 
-    let updated = false;
     try {
-        updated = await updateProjectById(projectId, parsed.data);
+        const response = await fetchProjectsApi(`/api/projects/${projectId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(parsed.data),
+        });
+        if (response.status === 404) {
+            return { errors: ["This project no longer exists."] };
+        }
+        if (!response.ok) {
+            throw new Error(`Project API returned ${response.status}.`);
+        }
     } catch (error) {
         console.error("Failed to update project:", error);
         return { errors: ["Unable to update the project. Please try again."] };
     }
-    if (!updated) {
-        return { errors: ["This project no longer exists."] };
-    }
-
     refreshProjects();
     redirect("/projects/all");
 }
 
 // deleteProject handles the deletion of an existing project.
-// It validates the project ID, deletes the project from the backend, and refreshes the frontend state.
+// It validates the project ID, deletes the project through the API, and refreshes the frontend state.
 export async function deleteProject(id: string): Promise<void> {
     const projectId = parseProjectId(id);
     if (projectId === null || projectId > 2147483647) {
         throw new Error("Invalid project ID.");
     }
 
-    const deleted = await deleteProjectById(projectId);
-    if (!deleted) {
+    const response = await fetchProjectsApi(`/api/projects/${projectId}`, {
+        method: "DELETE",
+    });
+    if (response.status === 404) {
         throw new Error("This project no longer exists.");
+    }
+    if (!response.ok) {
+        throw new Error(`Failed to delete project (${response.status}).`);
     }
 
     refreshProjects();
