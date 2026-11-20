@@ -1,5 +1,5 @@
 import CredentialSymbol from "./CredentialSymbol";
-import type { Credential } from "@/src/types/about-types";
+import type { Credential } from "@/src/lib/about/about-types";
 
 interface CredentialCardProps {
     credential: Credential;

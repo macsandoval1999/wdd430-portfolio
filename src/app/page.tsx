@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import ProjectListLoader from "@/src/components/projects/ProjectListLoader";
+import RecentProjectsLoader from "@/src/components/projects/RecentProjectsLoader";
 import SectionLoading from "@/src/components/behaviors/SectionLoading";
 
 export default function Home() {
@@ -69,7 +69,7 @@ export default function Home() {
                         />
                     }
                 >
-                    <ProjectListLoader limit={2} />
+                    <RecentProjectsLoader limit={2} />
                 </Suspense>
             </section>
 

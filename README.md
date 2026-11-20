@@ -19,6 +19,10 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Managing projects
+
+Use **Create project** in the project navigation, or **Edit** and **Delete** on a project card. These actions write to the configured PostgreSQL database and are available in development and production. They do not require authentication: anyone who can access the application can create, edit, or delete projects.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

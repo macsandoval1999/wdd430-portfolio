@@ -1,5 +1,5 @@
 import CredentialSymbol from "./CredentialSymbol";
-import type { Milestone } from "@/src/types/about-types";
+import type { Milestone } from "@/src/lib/about/about-types";
 
 interface MilestoneCardProps extends Milestone {
     milestoneNumber: number;

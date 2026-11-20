@@ -1,4 +1,4 @@
-import type { MilestoneType } from "../../types/about-types";
+import type { MilestoneType } from "./about-types";
 
 const MILESTONE_TYPES: readonly MilestoneType[] = [
     "course",

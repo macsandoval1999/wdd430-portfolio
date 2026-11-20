@@ -1,10 +1,25 @@
+/* NOTE:
+    This async Server Component prepares the paginated project results for the project listing pages.
+    It validates search parameters, fetches the matching projects and page count, and passes them to ProjectList and ProjectPagination.
+    If the requested page is beyond the available pages, it redirects to the last page while preserving the active search and filters.
+    ProjectSearch and ProjectResults do not call each other. ProjectSearch updates the URL when the user searches or changes a filter.
+    Next.js then supplies the updated searchParams to the page, which passes them to ProjectResults to fetch and display the matching projects.
+*/
+
+
+
+/****** IMPORTS ******/
+// redirect navigates to a valid page when the requested page is out of range.
 import { redirect } from "next/navigation";
+// ProjectList displays the projects, and ProjectPagination provides the page navigation.
 import ProjectList from "./ProjectList";
 import ProjectPagination from "./ProjectPagination";
+// These model functions fetch the filtered projects and the number of matching pages.
 import {
     getFilteredProjects,
-    getPaginatedProjects,
-} from "@/src/lib/projects/projects-db";
+    getProjectsPageCount,
+} from "@/src/lib/projects/projects-models";
+// These helpers validate the URL parameters and provide defaults when needed.
 import {
     parseProjectFilter,
     parseProjectOrder,
@@ -12,10 +27,13 @@ import {
     parseProjectSearchQuery,
     parseProjectSort,
 } from "@/src/lib/projects/projects-validation";
-import type {
-    ProjectType,
-} from "@/src/types/projects-types";
+// ProjectType defines the valid fixed project types.
+import type { ProjectType } from "@/src/lib/projects/projects-types";
 
+
+
+/****** INTERFACE ******/
+// The results component receives the route, search parameters, optional fixed type, and optional empty state.
 interface ProjectResultsLoaderProps {
     pathname: string;
     searchParams: Promise<Record<string, string | string[] | undefined>>;
@@ -26,24 +44,32 @@ interface ProjectResultsLoaderProps {
     };
 }
 
+
+
+/***** The ProjectResultsLoader component *****/
+// Load the current page of projects and render the list and pagination controls.
 export default async function ProjectResultsLoader({
     pathname,
     searchParams,
     fixedType,
     emptyState,
 }: ProjectResultsLoaderProps) {
+    // Parse the URL values before using them in the project queries.
     const params = await searchParams;
     const query = parseProjectSearchQuery(params.query);
     const page = parseProjectPage(params.page);
     let projectType = parseProjectFilter(params.type);
+    // A type-specific page takes precedence over a type supplied in the URL.
     if (fixedType !== undefined) {
         projectType = fixedType;
     }
     const sort = parseProjectSort(params.sort);
     const order = parseProjectOrder(params.order);
-    const totalPages = await getPaginatedProjects(query, projectType);
+    // Get the page count first so a page beyond the last result can be corrected.
+    const totalPages = await getProjectsPageCount(query, projectType);
     const currentPage = Math.min(page, totalPages);
 
+    // Redirect to the last available page, retaining the non-default search and browse parameters.
     if (page !== currentPage) {
         const params = new URLSearchParams();
         if (query) params.set("query", query);
@@ -60,12 +86,14 @@ export default async function ProjectResultsLoader({
         redirect(`${pathname}?${params.toString()}`);
     }
 
+    // Fetch only the matching projects for the valid page.
     const projects = await getFilteredProjects(query, currentPage, {
         type: projectType,
         sort,
         order,
     });
 
+    // Show a search-specific message when a query has no results; otherwise use the supplied or default message.
     let resultEmptyState = emptyState;
     if (query) {
         resultEmptyState = {
@@ -81,12 +109,10 @@ export default async function ProjectResultsLoader({
         };
     }
 
+    // ProjectList renders the results or empty state, and ProjectPagination renders the page controls.
     return (
         <>
-            <ProjectList
-                projects={projects}
-                emptyState={resultEmptyState}
-            />
+            <ProjectList projects={projects} emptyState={resultEmptyState} />
             <ProjectPagination
                 currentPage={currentPage}
                 totalPages={totalPages}

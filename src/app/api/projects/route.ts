@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllProjects } from "@/src/lib/projects/projects-db";
+import { getAllProjects } from "@/src/lib/projects/projects-models";
 import { isProjectType } from "@/src/lib/projects/projects-validation";
 
 // /api/projects

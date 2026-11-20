@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProjectListLoader from "@/src/components/projects/ProjectListLoader";
+import ProjectListLoader from "@/src/components/projects/RecentProjectsLoader";
 import SectionLoading from "@/src/components/behaviors/SectionLoading";
 
 export const metadata: Metadata = {

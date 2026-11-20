@@ -5,6 +5,10 @@ export type ProjectSort = "recently_updated" | "title";
 export type ProjectOrder = "asc" | "desc";
 export type ProjectFilter = ProjectType | "all";
 
+export interface ProjectFormState {
+    errors: string[];
+}
+
 // Create an interface to represent a project
 // NOTE: An interface is used to define the shape of an object, specifying the properties and their types.
 // The primary key for this interface is the 'id' property, which uniquely identifies each project.

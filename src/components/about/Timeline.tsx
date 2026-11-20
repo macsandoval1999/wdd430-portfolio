@@ -1,5 +1,5 @@
 import MilestoneCard from "./MilestoneCard";
-import type { Milestone } from "@/src/types/about-types";
+import type { Milestone } from "@/src/lib/about/about-types";
 
 // The MilestoneListProps interface defines the expected structure of the milestones array.
 interface MilestoneListProps {

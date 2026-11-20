@@ -25,9 +25,9 @@ export default async function AllProjectsPage({
                     All projects
                 </h1>
                 <p className="mb-0 mt-5 max-w-[44rem] text-[clamp(1rem,2vw,1.2rem)] text-muted">
-                    Search and explore school projects and open-source work.
-                    Use the filters to find projects by type or sort them to
-                    your preference.
+                    Search and explore school projects and open-source work. Use
+                    the filters to find projects by type or sort them to your
+                    preference.
                 </p>
             </header>
             <Suspense
