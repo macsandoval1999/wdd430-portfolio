@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
+// notFound tells Next.js to render the nearest project not-found.tsx.
 import { notFound } from "next/navigation";
 import ProjectForm from "@/src/components/projects/ProjectForm";
 import SectionLoading from "@/src/components/behaviors/SectionLoading";
@@ -10,13 +11,10 @@ import type { Project } from "@/src/lib/projects/projects-types";
 
 export const metadata: Metadata = { title: "Edit Project" };
 
-async function EditProjectForm({
-    params,
-}: {
-    params: Promise<{ id: string }>;
-}) {
+async function EditProjectForm({params}: {params: Promise<{ id: string }>}) {
     const { id } = await params;
     const projectId = parseProjectId(id);
+    // Invalid IDs and projects missing from the API both use the project not-found page.
     if (projectId === null || projectId > 2147483647) {
         notFound();
     }
@@ -24,6 +22,7 @@ async function EditProjectForm({
     if (response.status === 404) {
         notFound();
     }
+    // Other API failures are unexpected errors and are handled by projects/error.tsx.
     if (!response.ok) {
         throw new Error(`Failed to load project (${response.status}).`);
     }
@@ -33,11 +32,7 @@ async function EditProjectForm({
     return <ProjectForm action={action} project={project} />;
 }
 
-export default function EditProjectPage({
-    params,
-}: {
-    params: Promise<{ id: string }>;
-}) {
+export default function EditProjectPage({params}: {params: Promise<{ id: string }>}) {
     return (
         <>
             <header className="mb-8">
