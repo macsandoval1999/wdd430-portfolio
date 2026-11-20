@@ -27,6 +27,8 @@ Project pages and actions use the `/api/projects` routes. Their write endpoints 
 
 `GET /api/projects` returns all projects (optionally filtered by `type`); adding `page` returns `{ projects, totalPages, currentPage }` and supports `query`, `type`, `sort`, and `order`. `GET /api/projects/{id}` returns one project. Use JSON with `POST /api/projects` or `PUT /api/projects/{id}`, and `DELETE /api/projects/{id}` to remove one.
 
+Project code is grouped in [src/lib/projects](./src/lib/projects). The API routes delegate request handling to the [controller](./src/lib/projects/controllers/projects-controller.ts); the [model](./src/lib/projects/models/projects-models.ts) contains database queries, and the [schema](./src/lib/projects/projects-schemas.ts) defines validation rules.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

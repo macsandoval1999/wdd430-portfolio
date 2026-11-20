@@ -6,12 +6,8 @@
     Successful create and update operations redirect to the project list.
  */
 
-
-
 // use server allows this file to use server actions in Next.js.
 "use server";
-
-
 
 /****** IMPORTS ******/
 // revalidatePath is used to refresh the project list on the frontend after changes.
@@ -25,9 +21,7 @@ import { ProjectFormSchema } from "./projects-schemas";
 // import parseProjectId so that we can validate and parse project IDs.
 import { parseProjectId } from "./projects-validation";
 // Import project form state type for type safety.
-import type { ProjectFormState } from "@/src/lib/projects/projects-types";
-
-
+import type { ProjectFormState } from "./projects-types";
 
 /****** HELPER FUNCTIONS ******/
 // readProjectForm reads and validates project form data using the ProjectFormSchema.

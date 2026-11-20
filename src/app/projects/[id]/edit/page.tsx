@@ -10,7 +10,11 @@ import type { Project } from "@/src/lib/projects/projects-types";
 
 export const metadata: Metadata = { title: "Edit Project" };
 
-async function EditProjectForm({params}: {params: Promise<{ id: string }>}) {
+async function EditProjectForm({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
     const { id } = await params;
     const projectId = parseProjectId(id);
     if (projectId === null || projectId > 2147483647) {

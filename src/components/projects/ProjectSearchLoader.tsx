@@ -6,8 +6,6 @@
     Using the ProjectSearch component keeps the search controls separate from the server-side URL parsing and validation.
 */
 
-
-
 /****** IMPORTS ******/
 // ProjectSearch renders the search input and optional browse filters.
 import ProjectSearch from "./ProjectSearch";
@@ -21,8 +19,6 @@ import {
 // ProjectType defines the valid fixed project types.
 import type { ProjectType } from "@/src/lib/projects/projects-types";
 
-
-
 /****** INTERFACE ******/
 // The loader receives the page's search parameters, an optional fixed type, and whether to show browse filters.
 interface ProjectSearchLoaderProps {
@@ -30,8 +26,6 @@ interface ProjectSearchLoaderProps {
     fixedType?: ProjectType;
     showBrowseFilters?: boolean;
 }
-
-
 
 /***** The ProjectSearchLoader component *****/
 // Wait for the search parameters and prepare the values passed to the client component.

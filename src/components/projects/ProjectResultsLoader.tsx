@@ -6,8 +6,6 @@
     Next.js then supplies the updated searchParams to the page, which passes them to ProjectResults to fetch and display the matching projects.
 */
 
-
-
 /****** IMPORTS ******/
 // redirect navigates to a valid page when the requested page is out of range.
 import { redirect } from "next/navigation";
@@ -27,8 +25,6 @@ import {
 // ProjectType defines the valid fixed project types.
 import type { Project, ProjectType } from "@/src/lib/projects/projects-types";
 
-
-
 /****** INTERFACE ******/
 // The results component receives the route, search parameters, optional fixed type, and optional empty state.
 interface ProjectResultsLoaderProps {
@@ -40,8 +36,6 @@ interface ProjectResultsLoaderProps {
         description: string;
     };
 }
-
-
 
 /***** The ProjectResultsLoader component *****/
 // Load the current page of projects and render the list and pagination controls.
@@ -74,7 +68,11 @@ export default async function ProjectResultsLoader({
     if (!response.ok) {
         throw new Error(`Failed to load project results (${response.status}).`);
     }
-    const { projects, totalPages, currentPage }: {
+    const {
+        projects,
+        totalPages,
+        currentPage,
+    }: {
         projects: Project[];
         totalPages: number;
         currentPage: number;

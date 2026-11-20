@@ -11,11 +11,11 @@ import type {
     ProjectOrder,
     ProjectSort,
     ProjectType,
-} from "./projects-types";
+} from "../projects-types";
 // We import the SQL client from Vercel Postgres to interact with the database.
 import { sql } from "@vercel/postgres";
 // We import the ProjectFormInput type for type safety when handling project form data.
-import type { ProjectFormInput } from "./projects-schemas";
+import type { ProjectFormInput } from "../projects-schemas";
 
 /****** INTERFACES ******/
 // Interface for search options when querying projects. Includes optional type, sort, and order fields. We define the interface to structure the search options consistently.

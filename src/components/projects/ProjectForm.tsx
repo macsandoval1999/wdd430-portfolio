@@ -7,12 +7,8 @@
     In the edit flow, the form is prefilled with the selected project's values by initializing the form state from the project prop.
 */
 
-
-
 // This component uses client-side state to keep the form fields in sync with user input.
 "use client";
-
-
 
 /****** IMPORTS ******/
 // useActionState manages form submission state, and useState keeps field values in sync with user input.
@@ -20,12 +16,7 @@ import { useActionState, useState } from "react";
 // Link is used to navigate back to the projects list.
 import Link from "next/link";
 // Project and ProjectFormState provide the project data and form state types so the form props and submission state are type-safe.
-import type {
-    Project,
-    ProjectFormState,
-} from "@/src/lib/projects/projects-types";
-
-
+import type { Project, ProjectFormState } from "@/src/lib/projects/projects-types";
 
 /****** INTERFACES *******/
 // ProjectFormProps defines the server action and optional project data required by the form.
@@ -37,20 +28,16 @@ interface ProjectFormProps {
     project?: Project;
 }
 
-
-
 /****** CONSTANTS ******/
 // Shared class names keep the form fields and labels styled consistently.
 const fieldClassName =
     "mt-2 w-full border-2 border-border bg-surface px-4 py-3 text-foreground outline-none focus:border-accent-bright focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-bright";
 const labelClassName = "block font-mono text-sm font-bold text-foreground";
 
-
-
 /***** The ProjectForm Component ******/
 // The form initializes its fields from the optional project and displays validation errors returned by the server action. It takes an action prop for form submission and an optional project prop for editing existing projects.
 export default function ProjectForm({ action, project }: ProjectFormProps) {
-    // state holds the server action's validation errors and the pending submission status. 
+    // state holds the server action's validation errors and the pending submission status.
     // formAction is a React function supplied by useActionState and passed to the form's action prop to handle submissions. It updates state with the result of the action.
     // pending will be true while the form submission is in progress.
     const [state, formAction, pending] = useActionState(action, { errors: [] });
@@ -86,7 +73,8 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
     // We then render the form with the current values whether empty or pre-filled from the project, and any validation errors.
     return (
         // The form submits through formAction and displays validation errors when present.
-        <form action={formAction}
+        <form
+            action={formAction}
             className="max-w-3xl space-y-5 border-2 border-border bg-surface p-[clamp(1.5rem,4vw,2.5rem)] shadow-[4px_4px_0_#090609]"
         >
             {/* If there are validation errors, display them in an alert box. */}

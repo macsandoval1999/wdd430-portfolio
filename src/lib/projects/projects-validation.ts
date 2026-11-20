@@ -5,7 +5,7 @@ import type {
     ProjectOrder,
     ProjectSort,
     ProjectType,
-} from "./projects-types.ts";
+} from "./projects-types";
 // We import validation schemas for project-related data to ensure input values conform to expected formats.
 import {
     PositiveIntegerSchema,
@@ -14,7 +14,7 @@ import {
     ProjectSearchQuerySchema,
     ProjectSortSchema,
     ProjectTypeSchema,
-} from "./projects-schemas.ts";
+} from "./projects-schemas";
 
 /****** CONSTANTS ******/
 // Maximum allowed page number for project pagination.

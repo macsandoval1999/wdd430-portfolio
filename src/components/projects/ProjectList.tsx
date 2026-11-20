@@ -5,15 +5,11 @@
     In summary, this component is responsible for rendering a list of projects and an empty state, not for filtering or sorting the projects.
 */
 
-
-
 /***** Imports *****/
 // ProjectCard is a component we made that displays individual project details in a card format.
 import ProjectCard from "./ProjectCard";
 // Project type so we can type the props of the ProjectList component correctly.
 import type { Project } from "@/src/lib/projects/projects-types";
-
-
 
 /***** Interface *****/
 // The ProjectListProps interface defines the expected structure of the props for the ProjectList component.
@@ -28,8 +24,6 @@ interface ProjectListProps {
         description: string;
     };
 }
-
-
 
 /***** The ProjectList component *****/
 // Renders a list of ProjectCard components, passing project data as props.

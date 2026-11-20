@@ -3,8 +3,6 @@
     We can use this component in a component that displays a list of projects, such as ProjectList by mapping over the projects and rendering a ProjectCard for each one.
 */
 
-
-
 /**** IMPORTS *****/
 // link allows us to navigate between pages in a Next.js application without a full page reload
 import Link from "next/link";
@@ -12,8 +10,6 @@ import Link from "next/link";
 import DeleteProjectButton from "./DeleteProjectButton";
 // Project type so we can type the props of the ProjectCard component correctly.
 import type { Project } from "@/src/lib/projects/projects-types";
-
-
 
 /***** The ProjectCard component *****/
 // Takes in a Project object as props and renders a card with project details, including title, description, technologies, course, repository link, website link, last updated date, and edit/delete actions.
@@ -35,7 +31,7 @@ export default function ProjectCard({
             <p className="my-[0.6rem] text-muted">{description}</p>
             <p className="my-[0.6rem] font-mono text-[0.85rem] text-muted">
                 <strong>Technologies:</strong> {technologies.join(", ")}
-            </p> 
+            </p>
             {/* Conditional rendering is used to only show the course if it is provided. */}
             {course && (
                 <p className="my-[0.6rem]">

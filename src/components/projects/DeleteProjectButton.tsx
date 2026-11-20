@@ -5,19 +5,12 @@
     This component is added into the projectCard component so each project has a delete button.
  */
 
-
-
 // use client so that this component can use hooks like useState and useEffect
 "use client";
-
-
 
 /***** IMPORTS *****/
 // Import the deleteProject function from the projects controllers module so we can add that functionality to the delete button
 import { deleteProject } from "@/src/lib/projects/projects-actions";
-
-
-
 
 /***** The DeleteProjectButton component *****/
 // Takes in the project id and title as props and renders a delete button with a confirmation prompt before deletion. { id: number, title: string } is the expected shape of the props object.

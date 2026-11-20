@@ -7,7 +7,6 @@
     This component contains all the search and browse filter controls for projects while the loader handles fetching and displaying the matching projects. Its added to the Projects Search Loader component thats actually used on the project pages.
  */
 
-
 // This component uses client-side hooks and event handlers to update the search parameters.
 "use client";
 

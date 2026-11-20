@@ -6,7 +6,6 @@
     In the Home and Projects main page, this component is used to display a limited preview of recent projects.
  */
 
-
 /****** IMPORTS *****/
 // ProjectList is a component we made that displays a list of projects.
 import ProjectList from "./ProjectList";

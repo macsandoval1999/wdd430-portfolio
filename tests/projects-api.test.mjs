@@ -19,7 +19,7 @@ function loadTypeScript(path, dependencies = {}) {
 
 const schemas = loadTypeScript("../src/lib/projects/projects-schemas.ts");
 const validation = loadTypeScript("../src/lib/projects/projects-validation.ts", {
-    "./projects-schemas.ts": schemas,
+    "./projects-schemas": schemas,
 });
 let lastQuery;
 let savedProject;
@@ -38,11 +38,12 @@ const models = {
     },
     deleteProjectById: async (id) => id === 1,
 };
-const dependencies = {
-    "@/src/lib/projects/projects-models": models,
-    "@/src/lib/projects/projects-schemas": schemas,
-    "@/src/lib/projects/projects-validation": validation,
-};
+const controller = loadTypeScript("../src/lib/projects/controllers/projects-controller.ts", {
+    "../models/projects-models": models,
+    "../projects-schemas": schemas,
+    "../projects-validation": validation,
+});
+const dependencies = { "@/src/lib/projects/controllers/projects-controller": controller };
 const collection = loadTypeScript("../src/app/api/projects/route.ts", dependencies);
 const item = loadTypeScript("../src/app/api/projects/[id]/route.ts", dependencies);
 const project = {
