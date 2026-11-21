@@ -1,6 +1,7 @@
 /* NOTE:
     This component displays a single project card with project details and edit/delete actions.
     We can use this component in a component that displays a list of projects, such as ProjectList by mapping over the projects and rendering a ProjectCard for each one.
+    The card uses the list's grid rows so matching details stay aligned across neighboring cards, even when text wraps or optional details are missing.
 */
 
 /**** IMPORTS *****/
@@ -24,23 +25,23 @@ export default function ProjectCard({
     course,
 }: Project) {
     return (
-        <article className="flex h-full min-w-0 flex-col border-2 border-l-[5px] border-border border-l-accent bg-surface p-[1.4rem] shadow-[4px_4px_0_#090609] transition duration-200 ease-out hover:-translate-y-1 hover:border-accent-bright hover:shadow-[6px_6px_0_#090609] motion-reduce:transition-none [&_strong]:text-foreground">
-            <h3 className="mb-[0.65rem] mt-0 text-[1.35rem] leading-[1.3] text-foreground">
+        <article className="row-span-8 grid min-w-0 grid-rows-subgrid gap-y-0 break-words border-2 border-l-[5px] border-border border-l-accent bg-surface p-[1.4rem] shadow-[4px_4px_0_#090609] transition duration-200 ease-out hover:border-accent-bright hover:shadow-[6px_6px_0_#090609] motion-reduce:transition-none [&_strong]:text-foreground">
+            <h3 className="row-start-1 mb-[0.65rem] mt-0 text-[1.35rem] leading-[1.3] text-foreground">
                 {title}
             </h3>
-            <p className="my-[0.6rem] text-muted">{description}</p>
-            <p className="my-[0.6rem] font-mono text-[0.85rem] text-muted">
+            <p className="row-start-2 my-[0.6rem] text-muted">{description}</p>
+            <p className="row-start-3 my-[0.6rem] font-mono text-[0.85rem] text-muted">
                 <strong>Technologies:</strong> {technologies.join(", ")}
             </p>
             {/* Conditional rendering is used to only show the course if it is provided. */}
             {course && (
-                <p className="my-[0.6rem]">
+                <p className="row-start-4 my-[0.6rem]">
                     <strong>Course:</strong> {course}
                 </p>
             )}
             {/* Conditional rendering is used to only show the project link if a URL is provided. */}
             {repository && (
-                <p className="my-[0.6rem]">
+                <p className="row-start-5 my-[0.6rem]">
                     {/* Use an HTML <a> element for external URLs (like GitHub). Use Next.js Link for internal routes within your app. */}
                     <a
                         href={repository}
@@ -54,7 +55,7 @@ export default function ProjectCard({
             )}
             {/* Conditional rendering is used to only show the website link if a URL is provided. */}
             {website && (
-                <p className="my-[0.6rem]">
+                <p className="row-start-6 my-[0.6rem]">
                     <a
                         href={website}
                         target="_blank"
@@ -65,10 +66,10 @@ export default function ProjectCard({
                     </a>
                 </p>
             )}
-            <p className="mt-auto w-full pt-4 text-right font-mono text-[0.8rem] text-muted">
+            <p className="row-start-7 mb-0 mt-4 w-full text-right font-mono text-[0.8rem] text-muted">
                 <strong>Last Updated:</strong> {last_updated}
             </p>
-            <div className="mt-4 flex items-center gap-5 border-t border-border pt-4">
+            <div className="row-start-8 mt-4 flex items-center gap-5 border-t border-border pt-4">
                 <Link
                     href={`/projects/${id}/edit`}
                     aria-label={`Edit ${title}`}

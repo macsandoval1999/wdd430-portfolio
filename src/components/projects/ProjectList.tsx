@@ -3,6 +3,7 @@
     It can limit the number of projects displayed and shows an empty state message when there are no projects to display.
     We use this component in our ProjectResults component to display the full list of projects after filtering and sorting the projects. Keep in mind, this component does not handle filtering or sorting; it only displays the projects it receives after those operations have been applied in other components.
     In summary, this component is responsible for rendering a list of projects and an empty state, not for filtering or sorting the projects.
+    Each card spans eight grid rows so neighboring cards can align their corresponding details with subgrid.
 */
 
 /***** Imports *****/
