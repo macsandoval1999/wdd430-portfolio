@@ -1,8 +1,8 @@
 /***** Imports *****/
 // z is a schema validation library used to define and validate the structure of project-related data.
 import { z } from "zod";
-// ProjectOrder, ProjectSort, and ProjectType are TypeScript types we made so we can use them to type the project-related constants and schemas.
-import type { ProjectOrder, ProjectSort, ProjectType } from "./projects-types";
+// Project types keep the constants, form schema, and validation errors type-safe.
+import type { ProjectFormInput, ProjectFormState, ProjectOrder, ProjectSort, ProjectType } from "./projects-types";
 
 
 
@@ -120,6 +120,12 @@ export const ProjectFormSchema = z.object({
                 date.getUTCDate() === day
             );
         }, "Enter a valid calendar date."),
-});
+}) satisfies z.ZodType<ProjectFormInput>;
 
-export type ProjectFormInput = z.infer<typeof ProjectFormSchema>;
+// Group form validation messages by field for the project form.
+export function formatProjectFormErrors(
+    error: z.ZodError<z.input<typeof ProjectFormSchema>>
+): ProjectFormState {
+    const { formErrors, fieldErrors } = z.flattenError(error);
+    return { errors: formErrors, fieldErrors };
+}

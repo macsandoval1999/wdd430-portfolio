@@ -16,7 +16,7 @@ import { useActionState, useState } from "react";
 // Link is used to navigate back to the projects list.
 import Link from "next/link";
 // Project and ProjectFormState provide the project data and form state types so the form props and submission state are type-safe.
-import type { Project, ProjectFormState } from "@/src/lib/projects/projects-types";
+import type { Project, ProjectFormState, ProjectFormInput } from "@/src/lib/projects/projects-types";
 
 /****** INTERFACES *******/
 // ProjectFormProps defines the server action and optional project data required by the form.
@@ -31,8 +31,18 @@ interface ProjectFormProps {
 /****** CONSTANTS ******/
 // Shared class names keep the form fields and labels styled consistently.
 const fieldClassName =
-    "mt-2 w-full border-2 border-border bg-surface px-4 py-3 text-foreground outline-none focus:border-accent-bright focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-bright";
+    "mt-2 w-full border-2 border-border bg-surface px-4 py-3 text-foreground focus:border-accent-bright focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-bright";
 const labelClassName = "block font-mono text-sm font-bold text-foreground";
+const fieldLabels: Record<string, string> = {
+    title: "Title",
+    description: "Description",
+    type: "Project type",
+    technologies: "Technologies",
+    website: "Website URL",
+    repository: "Repository URL",
+    course: "Course",
+    lastUpdated: "Last updated",
+};
 
 /***** The ProjectForm Component ******/
 // The form initializes its fields from the optional project and displays validation errors returned by the server action. It takes an action prop for form submission and an optional project prop for editing existing projects.
@@ -63,6 +73,23 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
         setValues((current) => ({ ...current, [name]: value }));
     }
 
+    // Link each invalid field to its own messages in the error summary.
+    function getFieldErrorProps(field: keyof ProjectFormInput) {
+        const errors = state.fieldErrors?.[field];
+        if (!errors || errors.length === 0) {
+            return {};
+        }
+
+        return {
+            "aria-invalid": true,
+            "aria-describedby": errors.map((_, index) => `${field}-error-${index}`).join(" "),
+        };
+    }
+
+    const fieldErrors = Object.entries(state.fieldErrors ?? {});
+    const hasErrors = state.errors.length > 0 ||
+        fieldErrors.some(([, errors]) => errors && errors.length > 0);
+
     // We then define the submit button label
     let submitLabel = "Save project";
     // If the form is submitting, update the label to indicate that saving is in progress.
@@ -77,27 +104,34 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
             action={formAction}
             className="max-w-3xl space-y-5 border-2 border-border bg-surface p-[clamp(1.5rem,4vw,2.5rem)] shadow-[4px_4px_0_#090609]"
         >
-            {/* If there are validation errors, display them in an alert box. */}
-            {state.errors.length > 0 && (
-                <div
-                    role="alert"
-                    className="border-2 border-accent bg-surface-raised p-4 text-foreground"
-                >
-                    <p className="mt-0 font-bold">
-                        Please check your submission:
-                    </p>
-                    <ul className="mb-0">
-                        {state.errors.map((error, index) => (
-                            <li key={`${index}-${error}`}>{error}</li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+            {/* Keep the live region mounted so screen readers announce new errors politely. */}
+            <div aria-live="polite" aria-atomic="true">
+                {hasErrors && (
+                    <div className="border-2 border-accent bg-surface-raised p-4 text-foreground">
+                        <p className="mt-0 font-bold">
+                            Please check your submission:
+                        </p>
+                        <ul className="mb-0">
+                            {state.errors.map((error, index) => (
+                                <li key={`${index}-${error}`}>{error}</li>
+                            ))}
+                            {fieldErrors.flatMap(([field, errors]) =>
+                                (errors ?? []).map((error, index) => (
+                                    <li id={`${field}-error-${index}`} key={`${field}-${index}`}>
+                                        {fieldLabels[field] ?? field}: {error}
+                                    </li>
+                                ))
+                            )}
+                        </ul>
+                    </div>
+                )}
+            </div>
             <label className={labelClassName} htmlFor="title">
                 Title
                 <input
                     id="title"
                     name="title"
+                    {...getFieldErrorProps("title")}
                     required
                     minLength={2}
                     maxLength={255}
@@ -113,6 +147,7 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
                 <textarea
                     id="description"
                     name="description"
+                    {...getFieldErrorProps("description")}
                     required
                     minLength={10}
                     maxLength={10000}
@@ -129,6 +164,7 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
                 <select
                     id="type"
                     name="type"
+                    {...getFieldErrorProps("type")}
                     value={values.type}
                     onChange={(event) =>
                         updateField("type", event.target.value)
@@ -144,6 +180,7 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
                 <input
                     id="technologies"
                     name="technologies"
+                    {...getFieldErrorProps("technologies")}
                     required
                     minLength={2}
                     maxLength={2000}
@@ -159,6 +196,7 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
                 <input
                     id="website"
                     name="website"
+                    {...getFieldErrorProps("website")}
                     type="url"
                     maxLength={500}
                     value={values.website}
@@ -173,6 +211,7 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
                 <input
                     id="repository"
                     name="repository"
+                    {...getFieldErrorProps("repository")}
                     type="url"
                     maxLength={500}
                     value={values.repository}
@@ -187,6 +226,7 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
                 <input
                     id="course"
                     name="course"
+                    {...getFieldErrorProps("course")}
                     maxLength={255}
                     value={values.course}
                     onChange={(event) =>
@@ -200,6 +240,7 @@ export default function ProjectForm({ action, project }: ProjectFormProps) {
                 <input
                     id="lastUpdated"
                     name="lastUpdated"
+                    {...getFieldErrorProps("lastUpdated")}
                     required
                     maxLength={10}
                     pattern="(0[1-9]|1[0-2])/(0[1-9]|[12][0-9]|3[01])/[0-9]{4}"

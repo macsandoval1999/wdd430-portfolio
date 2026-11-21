@@ -16,8 +16,8 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 // Send project operations to the API routes.
 import { fetchProjectsApi } from "./projects-api";
-// Import project form schema so that we can validate and parse form data.
-import { ProjectFormSchema } from "./projects-schemas";
+// Import the project form schema and validation error formatter.
+import { formatProjectFormErrors, ProjectFormSchema } from "./projects-schemas";
 // import parseProjectId so that we can validate and parse project IDs.
 import { parseProjectId } from "./projects-validation";
 // Import project form state type for type safety.
@@ -55,7 +55,7 @@ export async function createProject(
 ): Promise<ProjectFormState> {
     const parsed = readProjectForm(formData);
     if (!parsed.success) {
-        return { errors: parsed.error.issues.map((issue) => issue.message) };
+        return formatProjectFormErrors(parsed.error);
     }
 
     try {
@@ -89,7 +89,7 @@ export async function updateProject(
     }
     const parsed = readProjectForm(formData);
     if (!parsed.success) {
-        return { errors: parsed.error.issues.map((issue) => issue.message) };
+        return formatProjectFormErrors(parsed.error);
     }
 
     try {

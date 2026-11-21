@@ -36,7 +36,7 @@ interface ProjectSearchProps {
 
 // Shared styling for the search input and browse selects.
 const fieldClassName =
-    "w-full border-2 border-border bg-surface px-4 py-3 font-mono text-sm text-foreground outline-none transition-colors placeholder:text-muted focus:border-accent-bright focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-bright";
+    "w-full border-2 border-border bg-surface px-4 py-3 font-mono text-sm text-foreground transition-colors placeholder:text-muted focus:border-accent-bright focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-accent-bright";
 
 /***** The ProjectSearch component *****/
 // Renders the search field and optional browse filters, using the URL to keep the current selections.

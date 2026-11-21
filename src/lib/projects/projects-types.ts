@@ -1,3 +1,15 @@
+// ProjectFormInput describes the validated project form data.
+export type ProjectFormInput = {
+    title: string;
+    description: string;
+    type: ProjectType;
+    technologies: string;
+    website: string;
+    repository: string;
+    course: string;
+    lastUpdated: string;
+};
+
 // Create a type to represent the different types of projects
 // NOTE: A type is used to define a set of possible values for a variable.
 export type ProjectType = "opensource" | "school";
@@ -7,6 +19,7 @@ export type ProjectFilter = ProjectType | "all";
 
 export interface ProjectFormState {
     errors: string[];
+    fieldErrors?: Partial<Record<keyof ProjectFormInput, string[]>>;
 }
 
 // Create an interface to represent a project
